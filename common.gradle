@@ -9,7 +9,7 @@ android {
         vectorDrawables.useSupportLibrary true
         vectorDrawables.generatedDensities = []
 
-        testApplicationId "de.danoeh.antennapod.core.tests"
+        testApplicationId "com.homeo.sixmin.kitchen.tests"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         resourceConfigurations += ["en", "ar", "br", "ca", "cs", "da", "de", "el", "es", "et", "eu", "fa", "fi", "fr", "gl", "hi", "hu", "in", "it", "iw", "ja", "ko", "lt", "nb", "nl", "pl", "pt", "pt-rBR", "ro", "ru", "sc", "sk", "sl", "sr", "sv", "tr", "uk", "zh-rCN", "zh-rTW"]
 
@@ -20,10 +20,10 @@ android {
     buildTypes {
         release {
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard.cfg"
-            resValue "string", "app_name", "AntennaPod"
+            resValue "string", "app_name", "六分钟厨房课"
         }
         debug {
-            resValue "string", "app_name", "AntennaPod Debug"
+            resValue "string", "app_name", "六分钟厨房课"
         }
     }
 

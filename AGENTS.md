@@ -53,3 +53,21 @@ When creating an issue, always follow one of the issue templates in `.github/ISS
 Apply the corresponding labels that are marked in the issue template yaml file.
 Always mention in the technical info box that the issue was AI generated.
 If you do not follow these, the issue gets closed automatically.
+
+<!-- agent-workflow:start -->
+## Lightweight agent workflow
+
+This project uses `.agent/PLAN.md` and `.agent/STATUS.md` for coordination.
+
+- The codebase, `git diff`, and tests are the source of truth.
+- Planner maintains the rolling plan and activates one outcome-oriented work package.
+- For authorized implementation, Planner directly starts one Executor when collaboration tools are available; the user does not copy handoff text into another task.
+- Executor implements only the active package and updates STATUS at meaningful checkpoints, handoff, completion, or blockage.
+- Executor completion returns through the collaboration tool's native completion message. Planner keeps the root task active with long waits instead of creating a file hook or busy-polling.
+- After two long waits with no observable work or status change, Planner sends one status request; if the Executor still does not respond, interrupt it, preserve partial work, and reassign the remaining bounded task or take over.
+- If the Executor stops because its model is unavailable or its usage limit is exhausted, preserve partial work and let Planner take over or use an already authorized available Executor; do not loop on the unavailable route.
+- Planner then acts as Reviewer and verifies actual changes and fresh tests before accepting work, sending a bounded correction, or activating the next authorized package.
+- Waiting reduces repeated Planner turns but does not make Executor or Reviewer usage free. Do not claim automatic wake-up after the root task has ended.
+- Do not create progress logs, routine reports, duplicate status systems, or speculative work.
+- Preserve existing instructions and user changes.
+<!-- agent-workflow:end -->

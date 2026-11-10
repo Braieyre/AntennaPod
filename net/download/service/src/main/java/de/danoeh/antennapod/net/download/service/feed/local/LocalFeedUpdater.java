@@ -55,6 +55,9 @@ public class LocalFeedUpdater {
 
     public static Feed updateFeed(Feed feed, Context context,
                                   @Nullable UpdaterProgressListener updaterProgressListener) {
+        if (feed.getDownloadUrl().startsWith(Feed.PREFIX_LOCAL_FOLDER + "zip:")) {
+            return feed;
+        }
         try {
             String uriString = feed.getDownloadUrl().replace(Feed.PREFIX_LOCAL_FOLDER, "");
             DocumentFile documentFolder = DocumentFile.fromTreeUri(context, Uri.parse(uriString));

@@ -72,6 +72,34 @@ public class DBWriter {
         });
     }
 
+    public static Future<Long> importLocalSeries(final Feed feed) {
+        return dbExec.submit(() -> {
+            PodDBAdapter adapter = PodDBAdapter.getInstance();
+            adapter.open();
+            try {
+                long id = adapter.setImportedFeed(feed);
+                EventBus.getDefault().post(new FeedListUpdateEvent(feed));
+                EventBus.getDefault().post(new FeedItemEvent(feed.getItems(), false));
+                return id;
+            } finally {
+                adapter.close();
+            }
+        });
+    }
+
+    public static Future<?> setImportedSeriesQueue(final List<FeedItem> items) {
+        return runOnDbThread(() -> {
+            PodDBAdapter adapter = PodDBAdapter.getInstance();
+            adapter.open();
+            try {
+                adapter.setQueue(items);
+                EventBus.getDefault().post(QueueEvent.setQueue(items));
+            } finally {
+                adapter.close();
+            }
+        });
+    }
+
     private DBWriter() {
     }
 

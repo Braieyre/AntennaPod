@@ -38,6 +38,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.snackbar.Snackbar;
 import de.danoeh.antennapod.R;
+import de.danoeh.antennapod.zipimport.SeriesLibraryFragment;
 import de.danoeh.antennapod.event.EpisodeDownloadEvent;
 import de.danoeh.antennapod.event.FeedUpdateRunningEvent;
 import de.danoeh.antennapod.event.MessageEvent;
@@ -421,7 +422,7 @@ public class MainActivity extends CastEnabledActivity implements NavigationToolb
         Fragment fragment;
         switch (tag) {
             case HomeFragment.TAG:
-                fragment = new HomeFragment();
+                fragment = new SeriesLibraryFragment();
                 break;
             case QueueFragment.TAG:
                 fragment = new QueueFragment();
@@ -455,7 +456,7 @@ public class MainActivity extends CastEnabledActivity implements NavigationToolb
                 break;
             default:
                 // default to home screen
-                fragment = new HomeFragment();
+                fragment = new SeriesLibraryFragment();
                 args = null;
                 break;
         }

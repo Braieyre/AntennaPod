@@ -649,6 +649,77 @@ public class PodDBAdapter {
         }
     }
 
+    public long setImportedFeed(Feed feed) {
+        db.beginTransactionNonExclusive();
+        try {
+            try (Cursor cursor = db.query(TABLE_NAME_FEEDS, new String[]{KEY_ID}, KEY_DOWNLOAD_URL + "=?",
+                    new String[]{feed.getDownloadUrl()}, null, null, null)) {
+                if (cursor.moveToFirst()) {
+                    feed.setId(cursor.getLong(0));
+                }
+            }
+            if (feed.getId() == 0) {
+                setFeed(feed);
+                if (feed.getId() <= 0) {
+                    throw new SQLException(feed.getDownloadUrl());
+                }
+                setFeedPreferences(feed.getPreferences());
+            } else {
+                ContentValues values = new ContentValues();
+                values.put(KEY_TITLE, feed.getFeedTitle());
+                values.put(KEY_DESCRIPTION, feed.getDescription());
+                values.put(KEY_IMAGE_URL, feed.getImageUrl());
+                values.put(KEY_FILE_URL, feed.getLocalFileUrl());
+                values.put(KEY_KEEP_UPDATED, false);
+                db.update(TABLE_NAME_FEEDS, values, KEY_ID + "=?", new String[]{String.valueOf(feed.getId())});
+            }
+            for (FeedItem item : feed.getItems()) {
+                item.setFeed(feed);
+                long mediaId = 0;
+                try (Cursor cursor = db.query(TABLE_NAME_FEED_ITEMS, new String[]{KEY_ID},
+                        KEY_FEED + "=? AND " + KEY_ITEM_IDENTIFIER + "=?",
+                        new String[]{String.valueOf(feed.getId()), item.getItemIdentifier()}, null, null, null)) {
+                    if (cursor.moveToFirst()) {
+                        item.setId(cursor.getLong(0));
+                    }
+                }
+                if (item.getId() == 0) {
+                    if (updateOrInsertFeedItem(item, false) <= 0 || item.getMedia().getId() <= 0) {
+                        throw new SQLException(item.getItemIdentifier());
+                    }
+                } else {
+                    ContentValues values = new ContentValues();
+                    values.put(KEY_TITLE, item.getTitle());
+                    values.put(KEY_DESCRIPTION, item.getDescription());
+                    values.put(KEY_IMAGE_URL, item.getImageUrl());
+                    values.put(KEY_PUBDATE, item.getPubDate().getTime());
+                    db.update(TABLE_NAME_FEED_ITEMS, values, KEY_ID + "=?",
+                            new String[]{String.valueOf(item.getId())});
+                    try (Cursor cursor = db.query(TABLE_NAME_FEED_MEDIA, new String[]{KEY_ID}, KEY_FEEDITEM + "=?",
+                            new String[]{String.valueOf(item.getId())}, null, null, null)) {
+                        if (cursor.moveToFirst()) {
+                            mediaId = cursor.getLong(0);
+                        }
+                    }
+                    if (mediaId == 0) {
+                        setMedia(item.getMedia());
+                    } else {
+                        item.getMedia().setId(mediaId);
+                        setMediaDownloadInformation(item.getMedia());
+                        ContentValues duration = new ContentValues();
+                        duration.put(KEY_DURATION, item.getMedia().getDuration());
+                        db.update(TABLE_NAME_FEED_MEDIA, duration, KEY_ID + "=?",
+                                new String[]{String.valueOf(mediaId)});
+                    }
+                }
+            }
+            db.setTransactionSuccessful();
+            return feed.getId();
+        } finally {
+            db.endTransaction();
+        }
+    }
+
     /**
      * Updates the download URL of a Feed.
      */

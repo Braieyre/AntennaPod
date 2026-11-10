@@ -28,16 +28,17 @@
         android:required="false"/>
 
     <application
+        tools:replace="android:icon"
         android:name="de.danoeh.antennapod.PodcastApp"
-        android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher"
+        android:icon="@mipmap/kitchen_launcher"
+        android:roundIcon="@mipmap/kitchen_launcher"
         android:label="@string/app_name"
         android:backupAgent=".storage.importexport.OpmlBackupAgent"
         android:restoreAnyVersion="true"
         android:theme="@style/Theme.AntennaPod.Splash"
         android:usesCleartextTraffic="true"
         android:supportsRtl="true"
-        android:logo="@mipmap/ic_launcher"
+        android:logo="@mipmap/kitchen_launcher"
         android:resizeableActivity="true"
         android:allowAudioPlaybackCapture="true"
         android:enableOnBackInvokedCallback="true"

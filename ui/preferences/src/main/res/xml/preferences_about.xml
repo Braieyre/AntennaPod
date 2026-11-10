@@ -5,8 +5,19 @@
     <Preference
             android:layout="@layout/about_teaser"/>
     <Preference
+            android:key="kitchen_attribution"
+            android:title="@string/kitchen_brand_attribution_title"
+            android:summary="@string/kitchen_brand_attribution"/>
+    <Preference
+            android:key="kitchen_source"
+            android:title="@string/kitchen_brand_source"
+            android:summary="github.com/Braieyre/AntennaPod"
+            >
+        <intent android:action="android.intent.action.VIEW" android:data="https://github.com/Braieyre/AntennaPod/tree/feat/sixmin-zip-library"/>
+    </Preference>
+    <Preference
             android:key="about_version"
-            android:title="@string/antennapod_version"
+            android:title="@string/kitchen_brand_version"
             android:icon="@drawable/ic_star"
             android:summary="1.7.2 (asd8qs)"/>
     <Preference

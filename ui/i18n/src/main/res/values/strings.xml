@@ -2,6 +2,70 @@
 <resources
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
+    <string name="zip_library">我的播客</string>
+    <string name="zip_import">导入压缩包</string>
+    <string name="zip_original_home">RSS 与原版首页</string>
+    <string name="zip_empty">把音频、封面与文字稿装进一个 ZIP，选一次，就成为完整节目。</string>
+    <string name="zip_back">全部节目</string>
+    <string name="zip_all_categories">全部分类</string>
+    <string name="zip_search">搜索剧集标题</string>
+    <string name="zip_transcript_search">搜索文字稿</string>
+    <string name="zip_play">播放</string>
+    <string name="zip_transcript">文字稿</string>
+    <string name="zip_details">原版剧集详情</string>
+    <string name="zip_report">导入结果</string>
+    <string name="zip_retry">重试上次导入</string>
+    <string name="zip_cancel">取消导入</string>
+    <string name="zip_copying">正在读取压缩包…</string>
+    <string name="zip_extracting">正在解压第 %1$d / %2$d 集</string>
+    <string name="zip_validating">正在校验第 %1$d / %2$d 集，已就绪 %3$d 集</string>
+    <string name="zip_committing">正在保存节目…</string>
+    <string name="zip_done">已导入 %1$d 集</string>
+    <string name="zip_cancelled">已取消，可重试；原有节目与进度已保留。</string>
+    <string name="zip_failed">导入失败：%1$s</string>
+    <string name="zip_no_valid_audio">没有可导入的有效音频，原有节目已保留。</string>
+    <string name="zip_series_summary">%1$d 集 · %2$d 个分类 · %3$s</string>
+    <string name="zip_episode_summary">%1$s · %2$s · %3$d%%</string>
+    <string name="zip_duration">%1$d:%2$02d</string>
+    <string name="zip_none_transcript">这集没有可用的文字稿。</string>
+    <string name="zip_match_count">%1$d / %2$d 处</string>
+    <string name="zip_next_match">下一处</string>
+    <string name="zip_previous_match">上一处</string>
+    <string name="zip_report_summary">导入 %1$d 集，保留原有 %2$d 集，%3$d 个分类
+总时长 %4$s · 耗时 %5$.2f 秒
+
+%6$s</string>
+    <string name="zip_report_clean">全部文件校验通过。</string>
+    <string name="zip_no_report">尚无导入记录。</string>
+    <string name="zip_delete_source">删除原压缩包</string>
+    <string name="zip_delete_prompt">已导入的节目位于应用私有存储。删除系统文件选择器选中的原 ZIP？</string>
+    <string name="zip_deleted">原压缩包已删除。</string>
+    <string name="zip_delete_failed">文件来源不允许删除，请在文件管理器中删除。</string>
+    <string name="zip_loading">正在读取节目…</string>
+    <string name="zip_no_results">没有匹配的剧集。</string>
+    <string name="zip_missing_media">本地音频不可用，请重新导入。</string>
+    <string name="zip_play_order">按学习顺序播放</string>
+    <string name="zip_queue_note">从这一集起，按节目顺序连续播放。</string>
+    <string name="zip_load_failed">节目读取失败：%1$s</string>
+    <string-array name="zip_issue_labels">
+        <item>不安全的压缩路径</item>
+        <item>重复文件路径</item>
+        <item>文件超过大小限制</item>
+        <item>文件解压或校验失败</item>
+        <item>空分类文件夹</item>
+        <item>缺少或为空的音频</item>
+        <item>集号与标题格式无法识别</item>
+        <item>分类内集号重复</item>
+        <item>缺少封面</item>
+        <item>封面损坏</item>
+        <item>缺少文字稿</item>
+        <item>文字稿为空、过大或非 UTF-8</item>
+        <item>音频损坏或无法读取时长</item>
+        <item>实际时长与播放清单不符</item>
+        <item>manifest 校验未通过</item>
+        <item>文件未按分类层级存放</item>
+    </string-array>
+
 
     <!-- Shared strings that are, or can, be shared throughout the UI  -->
     <string name="general_expand_button">Expand</string>
@@ -1067,4 +1131,8 @@
     <string name="wearos_play_on_phone" tools:ignore="UnusedResources">Play on phone</string>
     <string name="wearos_browse_phone" tools:ignore="UnusedResources">Browse phone</string>
     <string name="wearos_open_on_phone" tools:ignore="UnusedResources">Open on phone</string>
+    <string name="kitchen_brand_version">六分钟厨房课版本</string>
+    <string name="kitchen_brand_attribution_title">基于 AntennaPod</string>
+    <string name="kitchen_brand_attribution">六分钟厨房课基于 AntennaPod develop 定制，保留原作者版权。原项目与本定制版均使用 GPL-3.0。音频、封面与文字稿由用户导入，保存在本机。</string>
+    <string name="kitchen_brand_source">定制版完整源码</string>
 </resources>
