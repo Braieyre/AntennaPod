@@ -22,8 +22,17 @@ Upstream 08107984b83fa0def9f6a1d2c244b1d9d1161322; branch feat/sixmin-zip-librar
 - Outcome: new app identity/icon/splash/about, APK, README-定制版.md and truthful import report, GPL source on fork.
 - Acceptance: build/install/launch; local Android evidence for requested behaviors; actual-device limitations explicit; source public with license retained.
 
-## Current Directive
+## Historical Directive
 Execute WP-02 only: publish matching GPL source and deliver tested APK, README and report. WP-01 accepted after 7 parser and 6 Android checks plus SAF/UI review.
 
 ## Key Decisions
 Use existing Feed/FeedItem/FeedMedia, DBReader/DBWriter and upstream playback service. Prefer independent versioned import metadata over invasive upstream schema edits; prevent imported feeds being rescanned by SAF-local-feed updater. Never delete user source without choice.
+
+## WP-03: Generic personal podcast identity
+- Status: READY
+- Outcome: App display name 我的播客; neutral microphone/headphone icon/splash/about; kitchen series remains only imported content and historical test fixture.
+- Acceptance: exact assembleDebug passes, in-place upgrade retains library/progress; versionCode increment; generic product README.
+- Constraints: keep applicationId and debug signing identity for existing installs/data; no player/importer/database behavior changes; preserve historical test report as labeled kitchen fixture evidence.
+
+## Current Directive
+Execute WP-03 only. Executor owns branding/resources/version/README changes and build. Root handles review, upgrade verification and delivery/release.

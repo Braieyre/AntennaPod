@@ -1131,8 +1131,8 @@
     <string name="wearos_play_on_phone" tools:ignore="UnusedResources">Play on phone</string>
     <string name="wearos_browse_phone" tools:ignore="UnusedResources">Browse phone</string>
     <string name="wearos_open_on_phone" tools:ignore="UnusedResources">Open on phone</string>
-    <string name="kitchen_brand_version">六分钟厨房课版本</string>
+    <string name="kitchen_brand_version">我的播客版本</string>
     <string name="kitchen_brand_attribution_title">基于 AntennaPod</string>
-    <string name="kitchen_brand_attribution">六分钟厨房课基于 AntennaPod develop 定制，保留原作者版权。原项目与本定制版均使用 GPL-3.0。音频、封面与文字稿由用户导入，保存在本机。</string>
+    <string name="kitchen_brand_attribution">我的播客基于 AntennaPod develop 定制，保留原作者版权。原项目与本定制版均使用 GPL-3.0。可导入不同主题、不同集数的播客系列；音频、封面与文字稿由用户提供，保存在本机。</string>
     <string name="kitchen_brand_source">定制版完整源码</string>
 </resources>

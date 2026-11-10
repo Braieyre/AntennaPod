@@ -20,10 +20,10 @@ android {
     buildTypes {
         release {
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard.cfg"
-            resValue "string", "app_name", "六分钟厨房课"
+            resValue "string", "app_name", "我的播客"
         }
         debug {
-            resValue "string", "app_name", "六分钟厨房课"
+            resValue "string", "app_name", "我的播客"
         }
     }
 

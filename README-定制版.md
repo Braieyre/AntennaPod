@@ -1,6 +1,8 @@
-# 六分钟厨房课
+# 我的播客
 
-基于 [AntennaPod](https://github.com/AntennaPod/AntennaPod) develop 的离线系列播客定制版，起点提交 `08107984b83fa0def9f6a1d2c244b1d9d1161322`。原作者版权、LICENSE、贡献者信息均保留；本定制代码使用 GPL-3.0。源码：[Braieyre/AntennaPod / feat/sixmin-zip-library](https://github.com/Braieyre/AntennaPod/tree/feat/sixmin-zip-library)。
+基于 [AntennaPod](https://github.com/AntennaPod/AntennaPod) develop 的通用离线播客应用，起点提交 `08107984b83fa0def9f6a1d2c244b1d9d1161322`。原作者版权、LICENSE、贡献者信息均保留；本定制代码使用 GPL-3.0。源码：[Braieyre/AntennaPod / feat/sixmin-zip-library](https://github.com/Braieyre/AntennaPod/tree/feat/sixmin-zip-library)。
+
+“我的播客”面向不同主题、不同集数的播客系列。每个用户导入的 ZIP 独立成为一个节目；应用不预装任何示例节目或音频。“六分钟厨房课”只是首个导入测试系列，不是产品名称，也不限制后续内容。
 
 ## 使用
 
@@ -58,20 +60,20 @@ JAVA_HOME=/opt/homebrew/opt/openjdk@21 ANDROID_HOME=/opt/homebrew/share/android-
 
 产物位于 `app/build/outputs/apk/free/debug/app-free-debug.apk` 和 `app/build/outputs/apk/play/debug/app-play-debug.apk`。交付优先使用 Free debug APK，可直接侧载；未打包用户的音频、封面或文字稿。debug 由本机 Android debug 密钥签名。Free/Play 使用相同应用 ID，属于两个构建口味，不可作为两个不同应用同时安装。
 
-应用 ID 已改为 `com.homeo.sixmin.kitchen`，debug 不额外加后缀，可与原版 AntennaPod 共存。源码 Java namespace 保留上游名称，方便后续合并上游代码；Android 实际安装包名与 namespace 是不同概念。应用名称由 common.gradle 中 app_name 设置，图标为新厨房声波图形，启动画面与“关于”归属说明已定制。
+应用显示名称为“我的播客”，图标及启动画面使用通用麦克风与声波图形。应用 ID 沿用首版的 `com.homeo.sixmin.kitchen`，debug 不额外加后缀，可与原版 AntennaPod 共存。这个历史安装标识仅用于兼容已有安装与私有数据，不代表应用主题；使用相同签名的新版本可直接覆盖升级。源码 Java namespace 保留上游名称，方便后续合并上游代码。应用名称由 common.gradle 中 app_name 设置，“关于”页保留上游归属与 GPL-3.0 说明。
 
-再次改包名时同步修改 app/build.gradle 的 applicationId 与两处 provider_authority、common.gradle 的 testApplicationId，并检查 APK 最终清单。不要全仓库替换 Java namespace。
+已有安装建议保持包名和签名不变。为全新独立分发改包名时，同步修改 app/build.gradle 的 applicationId 与两处 provider_authority、common.gradle 的 testApplicationId，并检查 APK 最终清单。不要全仓库替换 Java namespace。
 
 ### Release 签名
 
 本次交付 debug；未生成或代管正式发布私钥。自行创建并妥善备份密钥（命令会交互式询问密码）：
 
 ```sh
-keytool -genkeypair -v -keystore kitchen-release.jks -alias kitchen -keyalg RSA -keysize 3072 -validity 10000
+keytool -genkeypair -v -keystore podcast-release.jks -alias podcast -keyalg RSA -keysize 3072 -validity 10000
 ```
 
 在仓库外的 Gradle 用户属性文件中设置 `releaseStoreFile`（密钥绝对路径）、`releaseStorePassword`、`releaseKeyAlias`、`releaseKeyPassword`，然后运行 `./gradlew :app:assembleFreeRelease`。请勿提交密钥、口令或 local.properties。同一包名必须沿用同一签名才可覆盖升级；debug 换 release 签名不能直接覆盖安装，卸载又会删除私有库，切换前保留原 ZIP。对外分发 APK 时同时提供该 APK 对应版本的完整源码与 LICENSE。
 
 ## 验证
 
-原版先编译并启动，再开始定制；基线提交与证据见交付测试报告。定制版的模拟器实测结果和命令见 `导入测试报告.md`。模拟器结果不代表某个手机品牌的后台策略或实体蓝牙设备已经验证。
+原版先编译并启动，再开始定制；基线提交与证据见交付测试报告。`导入测试报告.md` 保留了以“六分钟厨房课-26集.zip”为首个历史测试样本的模拟器实测结果和命令；其中的节目名与首版 APK 名称属于测试记录，不是当前产品名称。模拟器结果不代表某个手机品牌的后台策略或实体蓝牙设备已经验证。
