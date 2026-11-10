@@ -1,38 +1,18 @@
 # Project Plan
 
 ## Product Goal
-Fork develop into 六分钟厨房课: a generic offline ZIP-series library integrated with AntennaPod playback, preserving RSS and GPL-3.0.
+通用个人播客软件“我的播客”：ZIP一次选择导入完整节目，支持多个节目及独立分类/封面/全文，保留AntennaPod原播放器与RSS功能。六分钟厨房课只是首个导入测试样本，不是产品品牌。
 
 ## Constraints
-Baseline upstream APK build and launch MUST precede application edits. No new player, server, account, telemetry or heavy dependencies. Preserve user media outside repository. Respect AGENTS.md. New visible strings in ui:i18n English resource file (Chinese custom labels are intended). Application ID com.homeo.sixmin.kitchen, distinct icon/splash/about attribution. Do not claim real-phone validation from emulator evidence.
+GPL-3.0，保留上游版权；不内置用户音频，不新增服务器、账号、遥测或重型依赖。安装ID com.homeo.sixmin.kitchen及debug签名保持兼容已有安装；显示名称与图标已经通用化。用户要求开发侧使用模拟器验证，用户只需直接体验APK。
 
-## Current Reality
-Upstream 08107984b83fa0def9f6a1d2c244b1d9d1161322; branch feat/sixmin-zip-library. GitHub fork Braieyre/AntennaPod exists. Java 21 and SDK /opt/homebrew/share/android-commandlinetools. Original build pending; do not implement application changes until root confirms build and launch success. User folder repacked UTF-8 ZIP outside repo contains 26 audio/cover/transcript triplets, 5 categories.
-
-## Work Packages
-### WP-01: Offline series import and browsing
-- Status: DONE
-- Outcome: SAF single ZIP selection, durable background import/cancel/retry and report; generic filesystem scanner; private storage; idempotent DB integration; series/categories/episodes/search/transcript search; upstream playback with ordered next episode.
-- Acceptance: actual supplied media counts and natural category/episode order; durable IDs and playback state across reimport/relaunch; partial malformed content reports; malformed ZIP safe handling; second series isolated; full transcript; no UI I/O blocking; no embedded media. Meaningful parser and Android integration checks.
-- Exclusions: branding and final delivery handled by root; no changes to upstream database schema unless necessary and agreed.
-- Dependencies/risks: baseline gate; upstream media fields and queue persistence; ZIP traversal/bombs/duplicate paths; staged file commit and cancellation; source ZIP deletion only on explicit user choice after success.
-
-### WP-02: Branding, verification and delivery
-- Status: IN_PROGRESS
-- Outcome: new app identity/icon/splash/about, APK, README-定制版.md and truthful import report, GPL source on fork.
-- Acceptance: build/install/launch; local Android evidence for requested behaviors; actual-device limitations explicit; source public with license retained.
-
-## Historical Directive
-Execute WP-02 only: publish matching GPL source and deliver tested APK, README and report. WP-01 accepted after 7 parser and 6 Android checks plus SAF/UI review.
-
-## Key Decisions
-Use existing Feed/FeedItem/FeedMedia, DBReader/DBWriter and upstream playback service. Prefer independent versioned import metadata over invasive upstream schema edits; prevent imported feeds being rescanned by SAF-local-feed updater. Never delete user source without choice.
-
-## WP-03: Generic personal podcast identity
-- Status: READY
-- Outcome: App display name 我的播客; neutral microphone/headphone icon/splash/about; kitchen series remains only imported content and historical test fixture.
-- Acceptance: exact assembleDebug passes, in-place upgrade retains library/progress; versionCode increment; generic product README.
-- Constraints: keep applicationId and debug signing identity for existing installs/data; no player/importer/database behavior changes; preserve historical test report as labeled kitchen fixture evidence.
+## Packages
+- WP-01 offline ZIP series library: DONE;7 parser tests and6 Android integration tests passed.
+- WP-02 initial delivery and public source/release: DONE;original develop built/launched before edits.
+- WP-03 generic identity correction: DONE;code commit4526ee659, app name我的播客, microphone icon/splash/about, version1.0.1-preview(code3130002), in-place upgrade verified.
 
 ## Current Directive
-Execute WP-03 only. Executor owns branding/resources/version/README changes and build. Root handles review, upgrade verification and delivery/release.
+WP-03 is DONE. All authorized work complete; await product-experience feedback before new work.
+
+## Evidence
+Public prerelease v1.0.1-preview.1 targets4526ee6593dfab50d4a5758bcc138fe794a7f86f. Four attachments checked against serverSHA-256. Source supplied by GitHub tag archives, license retained. Emulator upgrade preserved allFeedIDs/media positions/played states; system app label and icon inspected. Original parser/player/importer/DB logic unchanged in branding update. Historical sample report remains labeled as such.
