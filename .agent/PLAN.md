@@ -1,32 +1,23 @@
 # Project Plan
 
 ## Product Goal
-通用个人播客软件“我的播客”：ZIP一次选择导入完整节目，支持多个节目及独立分类/封面/全文，保留AntennaPod原播放器与RSS功能。六分钟厨房课只是首个导入测试样本，不是产品品牌。
+通用个人播客软件“我的播客”：一次选择ZIP导入完整系列，独立节目/分类/封面/全文，复用AntennaPod数据库与Media3。厨房课仅为用户第一个测试节目，不是软件品牌。
 
 ## Constraints
-GPL-3.0，保留上游版权；不内置用户音频，不新增服务器、账号、遥测或重型依赖。已授权正式版使用新包名 com.homeo.mypodcasts 和独立签名，允许卸载重导。用户要求开发侧使用模拟器验证，用户只需直接体验APK。
+GPL-3.0，保留上游版权。无新增账号/服务器/遥测/重型框架；不打包用户媒体。正式版新包名com.homeo.mypodcasts，独立签名。用户接受重新导入，开发侧模拟器验证，手机真实触感留待正常体验。
 
 ## Packages
-- WP-01 offline ZIP series library: DONE;7 parser tests and6 Android integration tests passed.
-- WP-02 initial delivery and public source/release: DONE;original develop built/launched before edits.
-- WP-03 generic identity correction: DONE;code commit4526ee659, app name我的播客, microphone icon/splash/about, version1.0.1-preview(code3130002), in-place upgrade verified.
+- WP-01 DONE: generic ZIP library/import/player integration; prior7parser+6Android checks.
+- WP-02 DONE: original upstream built/launched first, fork/source/initial preview delivery.
+- WP-03 DONE: generic app identity corrected to我的播客.
+- WP-04 DONE: authentic UI baseline, scoped audit,10rules confirmed.
+- WP-05 DONE: copy changes and interaction reviewed; user requested color and original rounded controls.
+- WP-06 DONE:3directions/icons/motion compared; user selected A on2026-11-11.
+- WP-07 DONE: native A implementation,3tabs,episode detail/directplay/transcript search, persistent import history/source state; resource0 startup and stale SAF metadata defects fixed in actual release regression.
+- WP-08 DONE: dedicated signed/minified/shrunk nondebuggable1.1.0, actual Release emulator regression, public formal Release and matching GPL source.
 
 ## Current Directive
-WP-07 IN_PROGRESS: User selected A on 2026-11-11. Implement approved warm-paper UI and reliable import history lifecycle throughout common pages. Preserve rounded controls, database/import rules and Media3. Acceptance: programme/queue/settings navigation, direct episode detail/play, transcript search, A light/dark tokens + soundfield icon, no automatic historical report/deletion popup, persistent task consumption and source terminal status, about accurately credits GPL upstream. Root reviews implementation and emulator evidence, then executes already-authorized independent signed v1.1.0 release com.homeo.mypodcasts.
+WP-08 DONE. Release https://github.com/Braieyre/AntennaPod/releases/tag/v1.1.0 published (draft=false,prerelease=false). Code/source tag points10fc1a2e6d7ebfe56b137f6bc94d7a773d0f706d. APK SHAf704062598c4aa5ea8f1d3feea9f83c21335e67c50e2965eb5ba892ec7b40e8c,16701967bytes. Local delivery ../交付/我的播客-1.1.0. GitHub's generated source tag archives verified HTTP200; duplicate manual source upload timed out, local source ZIP retained separately. No implementation remains authorized/unfinished. User may experience phone feel without a testing checklist.
 
 ## Evidence
-Public prerelease v1.0.1-preview.1 targets4526ee6593dfab50d4a5758bcc138fe794a7f86f. Four attachments checked against serverSHA-256. Source supplied by GitHub tag archives, license retained. Emulator upgrade preserved allFeedIDs/media positions/played states; system app label and icon inspected. Original parser/player/importer/DB logic unchanged in branding update. Historical sample report remains labeled as such.
-
-## WP-04
-Status: IN_PROGRESS. Outcome: reproducible XML/Java UI chrome metrics, authentic baseline screenshots, audit + proposed ten rules for user review. Exclude imported content/transcript bodies from chrome metrics. Capture common screens where possible, mark missing evidence. Do not implement application behavior or visual design yet.
-
-## WP-05
-IN_PROGRESS. User-reviewable HTML interaction boards, Markdown change table, complete common-screen baseline where feasible. Stop for interaction review before code implementation.
-
-## WP-06
-IN_PROGRESS: visual-review.html,3directions x3screens + real baseline column + icon masks/sizes, design tokens and playable motion.
-
-## WP-07
-IN_PROGRESS: approved A implementation and regression.
-## WP-08
-PLANNED: dedicated fail-fast production signing, actual Release emulator regression, APK/checksums/GPL source and GitHub formal release.
+Latest actual Release10instrumentation tests pass (4lifecycle+5import+1real Media3 playback); post-force-stop persistence/FLAG_DEBUGGABLE export passes. Real SAF source deletion, external deletion, corrupt retry, transcript search, category/title filters, light/dark,130%font and notification pause checked.16native contrast pairs min4.85. Raw logs/screenshots remain ../verification/v1.1.0; concise report docs/ui-polish/release-v1.1.0.md. Private sample cover/screenshot files excluded from public Git. Dedicated signing key outside repo with password in macOS Keychain; missing signing credentials fails. Physical haptics/Bluetooth/OEM battery policy not claimed.

@@ -91,3 +91,5 @@ $ANDROID_HOME/build-tools/36.0.0/apksigner verify --verbose --print-certs app/bu
 ## 验证
 
 原版先编译并启动，再开始定制；基线提交与证据见交付测试报告。`导入测试报告.md` 保留了以“六分钟厨房课-26集.zip”为首个历史测试样本的模拟器实测结果和命令；其中的节目名与首版 APK 名称属于测试记录，不是当前产品名称。模拟器结果不代表某个手机品牌的后台策略或实体蓝牙设备已经验证。
+
+当前正式版：[v1.1.0 Release 与 APK](https://github.com/Braieyre/AntennaPod/releases/tag/v1.1.0)。本轮实际 Release 验证见 [正式版测试报告](docs/ui-polish/release-v1.1.0.md)；旧记录仍作为历史保留。
