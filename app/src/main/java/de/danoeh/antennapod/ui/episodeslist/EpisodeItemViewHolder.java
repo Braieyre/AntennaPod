@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import de.danoeh.antennapod.R;
+import de.danoeh.antennapod.zipimport.SeriesStore;
 import de.danoeh.antennapod.model.feed.Feed;
 import de.danoeh.antennapod.ui.CoverLoader;
 import de.danoeh.antennapod.actionbutton.ItemActionButton;
@@ -23,6 +24,7 @@ import de.danoeh.antennapod.playback.service.PlaybackStatus;
 import de.danoeh.antennapod.event.playback.PlaybackPositionEvent;
 import de.danoeh.antennapod.ui.common.DateFormatter;
 import de.danoeh.antennapod.model.feed.FeedItem;
+import de.danoeh.antennapod.model.feed.Feed;
 import de.danoeh.antennapod.model.feed.FeedMedia;
 import de.danoeh.antennapod.model.playback.MediaType;
 import de.danoeh.antennapod.net.download.serviceinterface.DownloadServiceInterface;
@@ -99,6 +101,8 @@ public class EpisodeItemViewHolder extends RecyclerView.ViewHolder {
         } else {
             leftPadding.setContentDescription(item.getTitle());
         }
+        boolean imported = SeriesStore.isImported(item.getFeed());
+        pubDate.setVisibility(imported ? View.GONE : View.VISIBLE);
         pubDate.setText(DateFormatter.formatAbbrev(activity, item.getPubDate()));
         pubDate.setContentDescription(DateFormatter.formatForAccessibility(item.getPubDate()));
         isInbox.setVisibility(item.isNew() ? View.VISIBLE : View.GONE);

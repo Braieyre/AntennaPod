@@ -1,0 +1,7 @@
+{
+  "scope": "zip_* English XML resources; Java zipimport dialog construction sites; excludes user content",
+  "strings": 42,
+  "over40": 1,
+  "dialog_sites": 3,
+  "length_convention": "Raw resource Unicode characters including printf placeholders; normalized alternative in metrics-baseline.json"
+}

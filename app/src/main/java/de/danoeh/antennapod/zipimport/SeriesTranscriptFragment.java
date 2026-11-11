@@ -8,6 +8,7 @@ import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.BackgroundColorSpan;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -51,35 +52,37 @@ public class SeriesTranscriptFragment extends Fragment {
     @NonNull
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedState) {
-        LinearLayout root = new LinearLayout(requireContext());
-        root.setOrientation(LinearLayout.VERTICAL);
-        MaterialToolbar toolbar = new MaterialToolbar(requireContext());
-        toolbar.setTitle(requireArguments().getString("title"));
-        root.addView(toolbar);
-        ViewCompat.setOnApplyWindowInsetsListener(toolbar, (view, insets) -> {
-            int top = insets.getInsets(WindowInsetsCompat.Type.statusBars()
-                    | WindowInsetsCompat.Type.displayCutout()).top;
-            view.setPadding(view.getPaddingLeft(), top, view.getPaddingRight(), 0);
-            view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    (int) (56 * getResources().getDisplayMetrics().density) + top));
-            return insets;
-        });
-        ViewCompat.requestApplyInsets(toolbar);
-        ((MainActivity) requireActivity()).setupToolbarToggle(toolbar, true);
+        LinearLayout root = PaperUi.column(requireContext());
+        MaterialToolbar toolbar = PaperUi.toolbar(this, root, R.string.zip_transcript, true);
+        toolbar.getMenu().add(R.string.paper_search).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         search = new EditText(requireContext());
         search.setSingleLine(true);
         search.setHint(R.string.zip_transcript_search);
+        search.setPadding(PaperUi.dp(requireContext(), 22), PaperUi.dp(requireContext(), 12),
+                PaperUi.dp(requireContext(), 22), PaperUi.dp(requireContext(), 12));
         root.addView(search);
+        search.setVisibility(View.GONE);
         LinearLayout controls = new LinearLayout(requireContext());
-        Button previous = new Button(requireContext());
-        previous.setText(R.string.zip_previous_match);
+        Button previous = PaperUi.button(requireContext(), R.string.zip_previous_match, false);
         controls.addView(previous);
         matches = new TextView(requireContext());
         controls.addView(matches, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
-        Button next = new Button(requireContext());
-        next.setText(R.string.zip_next_match);
+        Button next = PaperUi.button(requireContext(), R.string.zip_next_match, false);
         controls.addView(next);
         root.addView(controls);
+        controls.setVisibility(View.GONE);
+        toolbar.setOnMenuItemClickListener(item -> {
+            boolean open = search.getVisibility() != View.VISIBLE;
+            search.setVisibility(open ? View.VISIBLE : View.GONE);
+            controls.setVisibility(open ? View.VISIBLE : View.GONE);
+            item.setTitle(open ? R.string.paper_done : R.string.paper_search);
+            if (open) {
+                search.requestFocus();
+            } else {
+                search.setText("");
+            }
+            return true;
+        });
         scroll = new ScrollView(requireContext());
         body = new TextView(requireContext());
         body.setTextSize(18);
@@ -146,13 +149,14 @@ public class SeriesTranscriptFragment extends Fragment {
                 offset += needle.length();
             }
             for (int i = 0; i < offsets.size(); i++) {
-                content.setSpan(new BackgroundColorSpan(i == selected ? 0xffffb74d : 0xfffff59d),
+                content.setSpan(new BackgroundColorSpan(PaperUi.color(requireContext(), i == selected
+                        ? R.attr.colorPrimaryContainer : R.attr.colorSecondaryContainer)),
                         offsets.get(i), offsets.get(i) + keyword.length(), 0);
             }
         }
         body.setText(content);
-        body.setTextColor(Color.rgb(40, 40, 40));
-        body.setBackgroundColor(Color.rgb(255, 253, 247));
+        body.setTextColor(PaperUi.color(requireContext(), android.R.attr.textColorPrimary));
+        body.setBackgroundColor(PaperUi.color(requireContext(), android.R.attr.colorBackground));
         matches.setText(getString(R.string.zip_match_count, offsets.isEmpty() ? 0 : selected + 1, offsets.size()));
         if (!offsets.isEmpty()) {
             int activeOffset = offsets.get(selected);

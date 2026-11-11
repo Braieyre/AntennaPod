@@ -33,3 +33,7 @@ gradle.properties
 .kotlin
 .claude
 .cursor
+
+docs/ui-polish/sample-assets/*.webp
+docs/ui-polish/screenshots/*.png
+docs/ui-polish/screenshots/*.xml

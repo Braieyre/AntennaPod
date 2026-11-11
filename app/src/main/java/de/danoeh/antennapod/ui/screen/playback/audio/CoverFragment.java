@@ -32,6 +32,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import de.danoeh.antennapod.BuildConfig;
 import de.danoeh.antennapod.R;
+import de.danoeh.antennapod.zipimport.SeriesStore;
 import de.danoeh.antennapod.event.MessageEvent;
 import de.danoeh.antennapod.event.PlayerStatusEvent;
 import de.danoeh.antennapod.model.feed.Feed;
@@ -145,12 +146,11 @@ public class CoverFragment extends Fragment {
     }
 
     private void displayMediaInfo(@NonNull Playable media) {
-        String pubDateStr = DateFormatter.formatAbbrev(getActivity(), media.getPubDate());
+        boolean imported = media instanceof FeedMedia && ((FeedMedia) media).getItem() != null
+                && SeriesStore.isImported(((FeedMedia) media).getItem().getFeed());
+        String pubDateStr = imported ? "" : DateFormatter.formatAbbrev(getActivity(), media.getPubDate());
         viewBinding.txtvPodcastTitle.setText(StringUtils.stripToEmpty(media.getFeedTitle())
-                + "\u00A0"
-                + "・"
-                + "\u00A0"
-                + StringUtils.replace(StringUtils.stripToEmpty(pubDateStr), " ", "\u00A0"));
+                + (imported ? "" : " · " + StringUtils.stripToEmpty(pubDateStr)));
         if (media instanceof FeedMedia) {
             viewBinding.txtvPodcastTitle.setOnClickListener(v -> openFeed(((FeedMedia) media).getItem().getFeed()));
         } else {

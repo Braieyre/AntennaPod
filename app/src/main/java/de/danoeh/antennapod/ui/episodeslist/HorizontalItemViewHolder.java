@@ -10,12 +10,14 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import de.danoeh.antennapod.R;
+import de.danoeh.antennapod.zipimport.SeriesStore;
 import de.danoeh.antennapod.ui.CoverLoader;
 import de.danoeh.antennapod.actionbutton.ItemActionButton;
 import de.danoeh.antennapod.ui.common.DateFormatter;
 import de.danoeh.antennapod.playback.service.PlaybackStatus;
 import de.danoeh.antennapod.event.playback.PlaybackPositionEvent;
 import de.danoeh.antennapod.model.feed.FeedItem;
+import de.danoeh.antennapod.model.feed.Feed;
 import de.danoeh.antennapod.model.feed.FeedMedia;
 import de.danoeh.antennapod.net.download.serviceinterface.DownloadServiceInterface;
 import de.danoeh.antennapod.ui.common.CircularProgressBar;
@@ -62,6 +64,8 @@ public class HorizontalItemViewHolder extends RecyclerView.ViewHolder {
                 .withCoverView(cover)
                 .load();
         title.setText(item.getTitle());
+        boolean imported = SeriesStore.isImported(item.getFeed());
+        date.setVisibility(imported ? View.GONE : View.VISIBLE);
         date.setText(DateFormatter.formatAbbrev(activity, item.getPubDate()));
         date.setContentDescription(DateFormatter.formatForAccessibility(item.getPubDate()));
         ItemActionButton actionButton = ItemActionButton.forItem(item);

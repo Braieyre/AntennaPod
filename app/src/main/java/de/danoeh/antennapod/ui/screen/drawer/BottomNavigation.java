@@ -45,20 +45,14 @@ public class BottomNavigation {
     }
 
     public void buildMenu() {
-        List<String> drawerItems = UserPreferences.getVisibleDrawerItemOrder();
-        drawerItems.remove(NavListAdapter.SUBSCRIPTION_LIST_TAG);
-
         Menu menu = bottomNavigationView.getMenu();
         menu.clear();
-        int maxItems = Math.min(5, bottomNavigationView.getMaxItemCount());
-        for (int i = 0; i < drawerItems.size() && i < maxItems - 1; i++) {
-            String tag = drawerItems.get(i);
-            MenuItem item = menu.add(0, NavigationNames.getBottomNavigationItemId(tag),
-                    0, context.getString(NavigationNames.getShortLabel(tag)));
-            item.setIcon(NavigationNames.getDrawable(tag));
-        }
-        MenuItem moreItem = menu.add(0, R.id.bottom_navigation_more, 0, context.getString(R.string.overflow_more));
-        moreItem.setIcon(R.drawable.dots_vertical);
+        menu.add(0, R.id.bottom_navigation_home, 0, context.getString(R.string.paper_programmes))
+                .setIcon(R.drawable.ic_subscriptions);
+        menu.add(0, R.id.bottom_navigation_queue, 0, context.getString(R.string.paper_queue))
+                .setIcon(R.drawable.ic_playlist_play);
+        menu.add(0, R.id.bottom_navigation_settings, 0, context.getString(R.string.paper_settings))
+                .setIcon(R.drawable.ic_settings);
         bottomNavigationView.setOnItemSelectedListener(bottomItemSelectedListener);
         updateBottomNavigationBadgeIfNeeded();
     }
@@ -135,9 +129,10 @@ public class BottomNavigation {
     }
 
     public void updateSelectedItem(String tag) {
-        int bottomSelectedItem = NavigationNames.getBottomNavigationItemId(tag);
+        int bottomSelectedItem = "PaperSettings".equals(tag) ? R.id.bottom_navigation_settings
+                : NavigationNames.getBottomNavigationItemId(tag);
         if (bottomNavigationView.getMenu().findItem(bottomSelectedItem) == null) {
-            bottomSelectedItem = R.id.bottom_navigation_more;
+            bottomSelectedItem = R.id.bottom_navigation_settings;
         }
         bottomNavigationView.setOnItemSelectedListener(null);
         bottomNavigationView.setSelectedItemId(bottomSelectedItem);

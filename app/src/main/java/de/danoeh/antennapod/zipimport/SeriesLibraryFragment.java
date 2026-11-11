@@ -2,62 +2,58 @@ package de.danoeh.antennapod.zipimport;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.provider.DocumentsContract;
 import android.provider.OpenableColumns;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Gravity;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import androidx.activity.OnBackPressedCallback;
+import com.bumptech.glide.Glide;
+import java.io.File;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.work.Data;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkInfo;
 import androidx.work.WorkManager;
-import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.snackbar.Snackbar;
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.activity.MainActivity;
 import de.danoeh.antennapod.event.FeedItemEvent;
 import de.danoeh.antennapod.event.playback.PlaybackPositionEvent;
 import de.danoeh.antennapod.model.feed.Feed;
 import de.danoeh.antennapod.model.feed.FeedItem;
-import de.danoeh.antennapod.playback.service.PlaybackServiceStarter;
+import de.danoeh.antennapod.model.feed.FeedMedia;
 import de.danoeh.antennapod.storage.database.DBReader;
 import de.danoeh.antennapod.storage.preferences.PlaybackPreferences;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import de.danoeh.antennapod.ui.screen.home.HomeFragment;
-import org.json.JSONArray;
 import org.json.JSONObject;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -74,22 +70,26 @@ public class SeriesLibraryFragment extends Fragment {
     private SeriesStore.Series selected;
     private long selectedId;
     private LinearLayout root;
-    private Button importButton;
-    private Button cancelButton;
-    private Button retryButton;
-    private Button backButton;
+    private LinearLayout header;
+    private LinearLayout continuation;
+    private LinearLayout importPanel;
+    private MaterialToolbar toolbar;
+    private MaterialButton emptyImport;
+    private MaterialButton retry;
     private TextView status;
     private TextView description;
+    private TextView title;
+    private ImageView programmeCover;
+    private OnBackPressedCallback programmeBack;
     private TextView empty;
     private ProgressBar progress;
-    private Spinner categories;
+    private ChipGroup categories;
     private EditText search;
-    private ListView list;
     private LibraryAdapter adapter;
-    private String lastWorkId;
     private String category = "";
     private String query = "";
     private boolean running;
+    private boolean rebuilding;
     private final ActivityResultLauncher<Intent> picker = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), result -> {
                 if (result.getResultCode() != Activity.RESULT_OK || result.getData() == null
@@ -97,230 +97,263 @@ public class SeriesLibraryFragment extends Fragment {
                     return;
                 }
                 Intent data = result.getData();
-                Uri uri = data.getData();
+                Context context = requireContext().getApplicationContext();
+                String uri = data.getData().toString();
                 try {
-                    requireContext().getContentResolver().takePersistableUriPermission(uri,
-                            data.getFlags() & (Intent.FLAG_GRANT_READ_URI_PERMISSION
-                                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION));
+                    context.getContentResolver().takePersistableUriPermission(data.getData(), data.getFlags()
+                            & (Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION));
                 } catch (SecurityException error) {
-                    Toast.makeText(requireContext(), getString(R.string.zip_failed, error.getMessage()),
-                            Toast.LENGTH_LONG).show();
+                    showError(error);
                     return;
                 }
-                Context context = requireContext().getApplicationContext();
                 executor.execute(() -> {
-                    String name = uri.getLastPathSegment();
-                    try (Cursor cursor = context.getContentResolver().query(uri,
+                    String name = data.getData().getLastPathSegment();
+                    try (Cursor cursor = context.getContentResolver().query(data.getData(),
                             new String[]{OpenableColumns.DISPLAY_NAME}, null, null, null)) {
                         if (cursor != null && cursor.moveToFirst()) {
                             name = cursor.getString(0);
                         }
-                    } catch (Exception ignored) {
-                        name = uri.getLastPathSegment();
+                    } catch (RuntimeException ignored) {
+                        name = data.getData().getLastPathSegment();
                     }
-                    context.getSharedPreferences("zip-import", Context.MODE_PRIVATE).edit()
-                            .putString("uri", uri.toString()).putString("name", name).apply();
-                    enqueue(context, uri.toString(), name);
+                    enqueue(context, uri, name);
                 });
             });
 
     @NonNull
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedState) {
-        if (savedState != null) {
-            selectedId = savedState.getLong("selected");
-            category = savedState.getString("category", "");
-            query = savedState.getString("query", "");
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup parent, Bundle state) {
+        if (state != null) {
+            selectedId = state.getLong("selected");
+            category = state.getString("category", "");
+            query = state.getString("query", "");
         }
-        root = new LinearLayout(requireContext());
-        root.setOrientation(LinearLayout.VERTICAL);
-        MaterialToolbar toolbar = new MaterialToolbar(requireContext());
-        toolbar.setTitle(R.string.zip_library);
-        toolbar.getMenu().add(R.string.zip_original_home).setOnMenuItemClickListener(item -> {
-            ((MainActivity) requireActivity()).loadChildFragment(new HomeFragment());
+        Context context = requireContext();
+        root = PaperUi.column(context);
+        toolbar = PaperUi.toolbar(this, root, R.string.paper_programmes, false);
+        toolbar.getMenu().add(R.string.paper_import_short).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        toolbar.setOnMenuItemClickListener(item -> {
+            chooseArchive();
             return true;
         });
-        root.addView(toolbar);
-        ViewCompat.setOnApplyWindowInsetsListener(toolbar, (view, insets) -> {
-            int top = insets.getInsets(WindowInsetsCompat.Type.statusBars()
-                    | WindowInsetsCompat.Type.displayCutout()).top;
-            view.setPadding(view.getPaddingLeft(), top, view.getPaddingRight(), 0);
-            view.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    (int) (56 * getResources().getDisplayMetrics().density) + top));
-            return insets;
+        toolbar.setNavigationOnClickListener(view -> showProgrammes());
+        importPanel = PaperUi.column(context);
+        PaperUi.inset(importPanel);
+        status = PaperUi.text(context, "", 15, false);
+        importPanel.addView(status);
+        progress = new ProgressBar(context, null, android.R.attr.progressBarStyleHorizontal);
+        importPanel.addView(progress, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                PaperUi.dp(context, 8)));
+        LinearLayout importActions = new LinearLayout(context);
+        MaterialButton cancel = PaperUi.button(context, R.string.paper_cancel, false);
+        cancel.setOnClickListener(view -> WorkManager.getInstance(context).cancelUniqueWork(ZipImportWorker.WORK_NAME));
+        retry = PaperUi.button(context, R.string.zip_retry, false);
+        retry.setOnClickListener(view -> {
+            String uri = ImportHistory.preferences(context).getString("uri", null);
+            if (uri != null) {
+                executor.execute(() -> enqueue(context, uri, ImportHistory.preferences(context).getString("name", "")));
+            }
         });
-        ViewCompat.requestApplyInsets(toolbar);
-        ((MainActivity) requireActivity()).setupToolbarToggle(toolbar, false);
-        LinearLayout actions = new LinearLayout(requireContext());
-        importButton = button(R.string.zip_import);
-        actions.addView(importButton, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
-        Button report = button(R.string.zip_report);
-        actions.addView(report);
-        root.addView(actions);
-        progress = new ProgressBar(requireContext(), null, android.R.attr.progressBarStyleHorizontal);
-        root.addView(progress);
-        status = new TextView(requireContext());
-        root.addView(status);
-        LinearLayout workActions = new LinearLayout(requireContext());
-        cancelButton = button(R.string.zip_cancel);
-        retryButton = button(R.string.zip_retry);
-        workActions.addView(cancelButton);
-        workActions.addView(retryButton);
-        root.addView(workActions);
-        cancelButton.setVisibility(View.GONE);
-        retryButton.setVisibility(View.GONE);
-        backButton = button(R.string.zip_back);
-        root.addView(backButton);
-        description = new TextView(requireContext());
-        description.setTextSize(15);
-        int pad = dp(12);
-        description.setPadding(pad, pad, pad, pad);
-        description.setMaxLines(7);
-        root.addView(description);
-        categories = new Spinner(requireContext());
-        root.addView(categories);
-        search = new EditText(requireContext());
+        importActions.addView(cancel);
+        importActions.addView(retry);
+        importPanel.addView(importActions);
+        importPanel.setVisibility(View.GONE);
+        root.addView(importPanel);
+        continuation = PaperUi.column(context);
+        root.addView(continuation);
+        header = PaperUi.column(context);
+        PaperUi.inset(header);
+        title = PaperUi.text(context, "", 25, false);
+        title.setTypeface(Typeface.create("serif", Typeface.BOLD));
+        LinearLayout programmeHeading = new LinearLayout(context);
+        programmeHeading.setGravity(Gravity.CENTER_VERTICAL);
+        programmeCover = PaperUi.cover(this, "", 64);
+        programmeHeading.addView(programmeCover);
+        title.setMaxLines(2);
+        title.setPadding(PaperUi.dp(context, 14), 0, 0, 0);
+        programmeHeading.addView(title, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+        header.addView(programmeHeading);
+        description = PaperUi.text(context, "", 14, true);
+        description.setMaxLines(2);
+        description.setPadding(0, PaperUi.dp(context, 8), 0, 0);
+        header.addView(description);
+        MaterialButton expand = PaperUi.button(context, R.string.paper_expand, false);
+        expand.setBackgroundTintList(ColorStateList.valueOf(Color.TRANSPARENT));
+        expand.setPadding(PaperUi.dp(context, 4), 0, PaperUi.dp(context, 12), 0);
+        expand.setOnClickListener(view -> {
+            boolean collapsed = description.getMaxLines() == 2;
+            description.setMaxLines(collapsed ? 5 : 2);
+            expand.setText(collapsed ? R.string.paper_collapse : R.string.paper_expand);
+        });
+        header.addView(expand, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                PaperUi.dp(context, 48)));
+        HorizontalScrollView categoryScroll = new HorizontalScrollView(context);
+        categoryScroll.setHorizontalScrollBarEnabled(false);
+        categories = new ChipGroup(context);
+        categories.setSingleLine(true);
+        categories.setSingleSelection(true);
+        categories.setSelectionRequired(true);
+        categoryScroll.addView(categories);
+        header.addView(categoryScroll);
+        search = new EditText(context);
         search.setSingleLine(true);
-        search.setHint(R.string.zip_search);
+        search.setTextSize(15);
+        search.setHint(R.string.paper_search_title);
         search.setText(query);
-        root.addView(search);
-        empty = new TextView(requireContext());
-        empty.setPadding(pad, pad, pad, pad);
+        search.setPadding(PaperUi.dp(context, 15), PaperUi.dp(context, 10), PaperUi.dp(context, 15), PaperUi.dp(context, 10));
+        search.setBackground(PaperUi.shape(context, PaperUi.color(context,
+                R.attr.colorSecondaryContainer), 15));
+        header.addView(search, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
+        root.addView(header);
+        empty = PaperUi.text(context, getString(R.string.paper_empty), 18, true);
+        empty.setPadding(PaperUi.dp(context, 25), PaperUi.dp(context, 36), PaperUi.dp(context, 25), PaperUi.dp(context, 20));
         root.addView(empty);
-        list = new ListView(requireContext());
+        emptyImport = PaperUi.button(context, R.string.paper_import, true);
+        emptyImport.setOnClickListener(view -> chooseArchive());
+        root.addView(emptyImport);
+        ListView list = new ListView(context);
+        list.setDividerHeight(0);
+        list.setBackgroundColor(PaperUi.color(context, android.R.attr.colorBackground));
         adapter = new LibraryAdapter();
         list.setAdapter(adapter);
         root.addView(list, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
-        importButton.setOnClickListener(view -> {
-            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-            intent.addCategory(Intent.CATEGORY_OPENABLE);
-            intent.setType("*/*");
-            intent.putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"application/zip", "application/x-zip-compressed",
-                    "application/octet-stream"});
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-                    | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-            picker.launch(intent);
-        });
-        report.setOnClickListener(view -> showReport());
-        cancelButton.setOnClickListener(view -> WorkManager.getInstance(requireContext())
-                .cancelUniqueWork(ZipImportWorker.WORK_NAME));
-        retryButton.setOnClickListener(view -> {
-            Context context = requireContext().getApplicationContext();
-            String uri = context.getSharedPreferences("zip-import", Context.MODE_PRIVATE).getString("uri", null);
-            String name = context.getSharedPreferences("zip-import", Context.MODE_PRIVATE).getString("name", null);
-            if (uri != null) {
-                enqueue(context, uri, name);
-            }
-        });
-        backButton.setOnClickListener(view -> {
-            selectedId = 0;
-            selected = null;
-            category = "";
-            query = "";
-            search.setText("");
-            render();
-        });
-        list.setOnItemClickListener((parent, view, position, id) -> {
-            if (selected == null) {
-                selected = seriesList.get(position);
-                selectedId = selected.feedId();
-                category = "";
-                reload();
-            } else {
-                showEpisode(displayed.get(position));
-            }
-        });
-        categories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                category = position == 0 || selected == null ? "" : selected.categories().get(position - 1);
-                filter();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
-        });
         search.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence value, int start, int count, int after) { }
+            public void beforeTextChanged(CharSequence text, int start, int count, int after) { }
 
             @Override
-            public void onTextChanged(CharSequence value, int start, int before, int count) {
-                query = value.toString();
+            public void onTextChanged(CharSequence text, int start, int before, int count) {
+                query = text.toString();
                 filter();
             }
 
             @Override
-            public void afterTextChanged(Editable value) { }
+            public void afterTextChanged(Editable text) { }
         });
-        WorkManager.getInstance(requireContext()).getWorkInfosForUniqueWorkLiveData(ZipImportWorker.WORK_NAME)
+        categories.setOnCheckedStateChangeListener((group, checked) -> {
+            if (rebuilding || checked.isEmpty()) {
+                return;
+            }
+            View chip = group.findViewById(checked.get(0));
+            category = String.valueOf(chip.getTag());
+            filter();
+        });
+        WorkManager.getInstance(context).getWorkInfosForUniqueWorkLiveData(ZipImportWorker.WORK_NAME)
                 .observe(getViewLifecycleOwner(), this::updateWork);
+        programmeBack = new OnBackPressedCallback(selectedId != 0) {
+            @Override
+            public void handleOnBackPressed() {
+                showProgrammes();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), programmeBack);
         return root;
     }
 
-    private static void enqueue(Context context, String uri, String name) {
-        Data.Builder input = new Data.Builder().putString(ZipImportWorker.URI, uri);
-        if (name != null) {
-            input.putString(ZipImportWorker.NAME, name);
+    private void chooseArchive() {
+        if (running) {
+            return;
         }
-        OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(ZipImportWorker.class)
-                .setInputData(input.build()).build();
-        WorkManager.getInstance(context).enqueueUniqueWork(ZipImportWorker.WORK_NAME,
-                ExistingWorkPolicy.KEEP, request);
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT).addCategory(Intent.CATEGORY_OPENABLE).setType("*/*")
+                .putExtra(Intent.EXTRA_MIME_TYPES, new String[]{"application/zip", "application/x-zip-compressed",
+                        "application/octet-stream"})
+                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                        | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+        picker.launch(intent);
+    }
+
+    public static synchronized boolean enqueueIfIdle(Context context, String uri, String name) throws Exception {
+        WorkManager manager = WorkManager.getInstance(context);
+        for (WorkInfo info : manager.getWorkInfosForUniqueWork(ZipImportWorker.WORK_NAME).get()) {
+            if (!info.getState().isFinished()) {
+                return false;
+            }
+        }
+        OneTimeWorkRequest request = new OneTimeWorkRequest.Builder(ZipImportWorker.class).setInputData(
+                new Data.Builder().putString(ZipImportWorker.URI, uri).putString(ZipImportWorker.NAME, name).build()).build();
+        ImportHistory.preferences(context).edit().putString("active_work", request.getId().toString())
+                .putString("uri", uri).putString("name", name).commit();
+        try {
+            manager.enqueueUniqueWork(ZipImportWorker.WORK_NAME, ExistingWorkPolicy.KEEP, request).getResult().get();
+            return true;
+        } catch (Exception error) {
+            ImportHistory.preferences(context).edit().remove("active_work").commit();
+            throw error;
+        }
+    }
+
+    private void enqueue(Context context, String uri, String name) {
+        try {
+            enqueueIfIdle(context, uri, name);
+        } catch (Exception error) {
+            if (root != null) {
+                root.post(() -> showError(error));
+            }
+        }
     }
 
     private void updateWork(List<WorkInfo> work) {
-        if (work.isEmpty()) {
-            progress.setVisibility(View.GONE);
+        if (root == null || work.isEmpty()) {
             return;
         }
-        WorkInfo info = work.get(work.size() - 1);
-        for (WorkInfo candidate : work) {
-            if (!candidate.getState().isFinished()) {
-                info = candidate;
+        WorkInfo current = null;
+        for (WorkInfo info : work) {
+            if (!info.getState().isFinished()) {
+                current = info;
                 break;
             }
         }
-        running = !info.getState().isFinished();
-        importButton.setEnabled(!running);
-        cancelButton.setVisibility(running ? View.VISIBLE : View.GONE);
-        retryButton.setVisibility(!running && info.getState() != WorkInfo.State.SUCCEEDED ? View.VISIBLE : View.GONE);
-        progress.setVisibility(running ? View.VISIBLE : View.GONE);
-        Data data = info.getProgress();
-        String stage = data.getString(ZipImportWorker.STAGE);
-        int current = data.getInt(ZipImportWorker.CURRENT, 0);
-        int total = data.getInt(ZipImportWorker.TOTAL, 0);
-        progress.setIndeterminate(total == 0);
-        progress.setMax(Math.max(1, total));
-        progress.setProgress(current);
-        if (running) {
-            if ("extract".equals(stage)) {
-                status.setText(getString(R.string.zip_extracting, current, total));
-            } else if ("validate".equals(stage)) {
-                status.setText(getString(R.string.zip_validating, current, total,
-                        data.getInt(ZipImportWorker.IMPORTED, 0)));
-            } else if ("commit".equals(stage)) {
-                status.setText(R.string.zip_committing);
-            } else {
-                status.setText(R.string.zip_copying);
-            }
-        } else {
-            if (info.getState() == WorkInfo.State.SUCCEEDED) {
-                status.setText(getString(R.string.zip_done, info.getOutputData().getInt(ZipImportWorker.IMPORTED, 0)));
-            } else if (info.getState() == WorkInfo.State.CANCELLED) {
-                status.setText(R.string.zip_cancelled);
-            } else {
-                status.setText(info.getOutputData().getString(ZipImportWorker.ERROR));
-            }
-            String identity = info.getId().toString() + info.getState();
-            if (!identity.equals(lastWorkId)) {
-                lastWorkId = identity;
-                reload();
-                if (info.getState() != WorkInfo.State.CANCELLED) {
-                    showReport();
-                }
-            }
+        running = current != null;
+        importPanel.setVisibility(running ? View.VISIBLE : View.GONE);
+        emptyImport.setEnabled(!running);
+        toolbar.getMenu().getItem(0).setEnabled(!running);
+        if (current != null) {
+            Data data = current.getProgress();
+            int count = data.getInt(ZipImportWorker.CURRENT, 0);
+            int total = data.getInt(ZipImportWorker.TOTAL, 0);
+            progress.setIndeterminate(total <= 0);
+            progress.setMax(Math.max(1, total));
+            progress.setProgress(count);
+            status.setText(total > 0 ? getString(R.string.paper_import_progress, count, total)
+                    : getString(R.string.paper_import_reading));
+            retry.setVisibility(View.GONE);
+            return;
         }
+        for (WorkInfo info : work) {
+            if (!info.getState().isFinished() || !ImportHistory.consumeCompletion(requireContext(), info.getId().toString())) {
+                continue;
+            }
+            String message = info.getState() == WorkInfo.State.SUCCEEDED
+                    ? getString(R.string.zip_done, info.getOutputData().getInt(ZipImportWorker.IMPORTED, 0))
+                    : getString(info.getState() == WorkInfo.State.CANCELLED
+                            ? R.string.paper_import_cancelled : R.string.paper_import_failed);
+            Snackbar result = Snackbar.make(root, message, Snackbar.LENGTH_LONG).setAction(R.string.paper_view,
+                    view -> ((MainActivity) requireActivity()).loadChildFragment(new ImportHistoryFragment()));
+            result.show();
+            if (info.getState() == WorkInfo.State.SUCCEEDED) {
+                PaperUi.completed(result.getView());
+            }
+            reload();
+        }
+    }
+
+    private void showProgrammes() {
+        selectedId = 0;
+        selected = null;
+        category = "";
+        query = "";
+        search.setText("");
+        render(null);
+    }
+
+    private void openProgramme(SeriesStore.Series series) {
+        selectedId = series.feedId();
+        selected = series;
+        category = "";
+        query = "";
+        search.setText("");
+        reload();
     }
 
     @Override
@@ -335,19 +368,20 @@ public class SeriesLibraryFragment extends Fragment {
         super.onStop();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        reload();
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onPlaybackPosition(PlaybackPositionEvent event) {
-        if (selected == null || adapter == null) {
-            return;
-        }
-        long currentId = PlaybackPreferences.getCurrentlyPlayingFeedMediaId();
+        long id = PlaybackPreferences.getCurrentlyPlayingFeedMediaId();
         for (FeedItem item : items.values()) {
-            if (item.getMedia() != null && item.getMedia().getId() == currentId) {
-                int duration = Math.max(1, item.getMedia().getDuration());
-                int before = (int) (item.getMedia().getPosition() * 100L / duration);
+            if (item.getMedia() != null && item.getMedia().getId() == id) {
+                int old = item.getMedia().getPosition() / 3000;
                 item.getMedia().setPosition(event.getPosition());
-                int after = (int) (event.getPosition() * 100L / duration);
-                if (before != after) {
+                if (old != event.getPosition() / 3000) {
                     adapter.notifyDataSetChanged();
                 }
                 break;
@@ -357,41 +391,31 @@ public class SeriesLibraryFragment extends Fragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEpisodeChanged(FeedItemEvent event) {
-        if (selected == null) {
-            return;
+        if (selected != null) {
+            reload();
         }
-        for (FeedItem item : event.items) {
-            if (item.getFeedId() == selected.feedId()) {
-                reload();
-                break;
-            }
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        reload();
     }
 
     private void reload() {
+        if (!isAdded() || root == null) {
+            return;
+        }
         Context context = requireContext().getApplicationContext();
-        LinearLayout currentRoot = root;
-        long targetId = selectedId;
+        LinearLayout target = root;
+        long id = selectedId;
         executor.execute(() -> {
             try {
                 List<SeriesStore.Series> loaded = SeriesStore.list(context);
                 Map<String, FeedItem> loadedItems = new HashMap<>();
-                if (targetId != 0) {
-                    Feed feed = DBReader.getFeed(targetId, false, 0, Integer.MAX_VALUE);
-                    if (feed != null) {
-                        for (FeedItem item : feed.getItems()) {
-                            loadedItems.put(item.getItemIdentifier(), item);
-                        }
+                Feed feed = id == 0 ? null : DBReader.getFeed(id, false, 0, Integer.MAX_VALUE);
+                if (feed != null) {
+                    for (FeedItem item : feed.getItems()) {
+                        loadedItems.put(item.getItemIdentifier(), item);
                     }
                 }
-                currentRoot.post(() -> {
-                    if (root != currentRoot || getView() != currentRoot) {
+                FeedMedia current = DBReader.getFeedMedia(PlaybackPreferences.getCurrentlyPlayingFeedMediaId());
+                target.post(() -> {
+                    if (root != target || getView() == null || id != selectedId) {
                         return;
                     }
                     seriesList.clear();
@@ -402,167 +426,128 @@ public class SeriesLibraryFragment extends Fragment {
                     for (SeriesStore.Series series : loaded) {
                         if (series.feedId() == selectedId) {
                             selected = series;
-                            break;
                         }
                     }
-                    render();
+                    render(current);
                 });
             } catch (Exception error) {
-                currentRoot.post(() -> {
-                    if (root == currentRoot && isAdded()) {
-                        status.setText(getString(R.string.zip_load_failed, error.getMessage()));
-                    }
-                });
+                target.post(() -> showError(error));
             }
         });
     }
 
-    private void render() {
-        boolean episodeView = selected != null;
-        backButton.setVisibility(episodeView ? View.VISIBLE : View.GONE);
-        description.setVisibility(episodeView ? View.VISIBLE : View.GONE);
-        categories.setVisibility(episodeView ? View.VISIBLE : View.GONE);
-        search.setVisibility(episodeView ? View.VISIBLE : View.GONE);
-        if (selected != null) {
-            description.setText(selected.title() + "\n" + selected.description());
+    private void render(FeedMedia current) {
+        boolean programme = selected != null;
+        header.setVisibility(programme ? View.VISIBLE : View.GONE);
+        programmeBack.setEnabled(programme);
+        toolbar.setTitle(programme ? R.string.paper_programme : R.string.paper_programmes);
+        if (programme) {
+            toolbar.setNavigationIcon(R.drawable.paper_back);
+        } else {
+            toolbar.setNavigationIcon(null);
+        }
+        continuation.removeAllViews();
+        if (programme) {
+            title.setText(selected.title());
+            if (!selected.episodes().isEmpty() && !selected.episodes().get(0).cover().isEmpty()) {
+                Glide.with(this).load(new File(selected.episodes().get(0).cover())).into(programmeCover);
+            } else {
+                programmeCover.setImageResource(R.drawable.kitchen_mark_foreground);
+            }
+            description.setText(selected.description());
+            rebuilding = true;
+            categories.removeAllViews();
             List<String> names = new ArrayList<>();
-            names.add(getString(R.string.zip_all_categories));
+            names.add("");
             names.addAll(selected.categories());
-            categories.setAdapter(new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_dropdown_item, names));
-            int position = selected.categories().indexOf(category);
-            categories.setSelection(position < 0 ? 0 : position + 1);
+            for (String name : names) {
+                Chip chip = new Chip(requireContext());
+                chip.setId(View.generateViewId());
+                chip.setTag(name);
+                chip.setText(name.isEmpty() ? getString(R.string.paper_all) : name);
+                chip.setCheckable(true);
+                chip.setChipStrokeWidth(0);
+                chip.setShapeAppearanceModel(chip.getShapeAppearanceModel().toBuilder()
+                        .setAllCornerSizes(PaperUi.dp(requireContext(), 24)).build());
+                int[][] states = new int[][]{new int[]{android.R.attr.state_checked}, new int[]{}};
+                chip.setChipBackgroundColor(new ColorStateList(states, new int[]{
+                        PaperUi.color(requireContext(), R.attr.colorSecondaryContainer), Color.TRANSPARENT}));
+                chip.setTextColor(new ColorStateList(states, new int[]{
+                        PaperUi.color(requireContext(), R.attr.paperSecondaryAccent),
+                        PaperUi.color(requireContext(), android.R.attr.textColorSecondary)}));
+                chip.setCheckedIconVisible(false);
+                chip.setChecked(name.equals(category));
+                categories.addView(chip);
+            }
+            rebuilding = false;
+        } else if (current != null && current.getItem() != null) {
+            for (SeriesStore.Series series : seriesList) {
+                if (series.feedId() != current.getItem().getFeedId()) {
+                    continue;
+                }
+                TextView heading = PaperUi.text(requireContext(), getString(R.string.paper_continue), 18, false);
+                heading.setPadding(PaperUi.dp(requireContext(), 22), PaperUi.dp(requireContext(), 12), 0, 0);
+                continuation.addView(heading);
+                LinearLayout row = PaperUi.row(requireContext());
+                row.setBackground(PaperUi.shape(requireContext(), PaperUi.color(requireContext(),
+                        R.attr.colorSecondaryContainer), 22));
+                row.addView(PaperUi.cover(this, current.getItem().getImageUrl(), 64));
+                TextView label = PaperUi.text(requireContext(), current.getEpisodeTitle(), 16, false);
+                label.setPadding(PaperUi.dp(requireContext(), 12), 0, PaperUi.dp(requireContext(), 8), 0);
+                label.setMaxLines(2);
+                row.addView(label, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+                MaterialButton play = PaperUi.play(requireContext());
+                play.setOnClickListener(view -> play(series, current.getItem().getItemIdentifier()));
+                row.addView(play);
+                LinearLayout.LayoutParams parameters = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                parameters.setMargins(PaperUi.dp(requireContext(), 20), PaperUi.dp(requireContext(), 12),
+                        PaperUi.dp(requireContext(), 20), PaperUi.dp(requireContext(), 10));
+                continuation.addView(row, parameters);
+                break;
+            }
         }
         filter();
     }
 
     private void filter() {
+        if (adapter == null) {
+            return;
+        }
         displayed.clear();
         if (selected != null) {
             for (SeriesStore.EpisodeData episode : selected.episodes()) {
                 if ((category.isEmpty() || category.equals(episode.category()))
-                        && (episode.number() + " " + episode.title()).toLowerCase(Locale.ROOT).contains(query.toLowerCase(Locale.ROOT))) {
+                        && (episode.number() + " " + episode.title()).toLowerCase(Locale.ROOT)
+                        .contains(query.toLowerCase(Locale.ROOT))) {
                     displayed.add(episode);
                 }
             }
         }
-        if (adapter != null) {
-            adapter.notifyDataSetChanged();
-            boolean isEmpty = selected == null ? seriesList.isEmpty() : displayed.isEmpty();
-            empty.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
-            empty.setText(selected == null ? R.string.zip_empty : R.string.zip_no_results);
+        boolean isEmpty = selected == null ? seriesList.isEmpty() : displayed.isEmpty();
+        empty.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
+        empty.setText(selected == null ? R.string.paper_empty : R.string.zip_no_results);
+        emptyImport.setVisibility(selected == null && seriesList.isEmpty() ? View.VISIBLE : View.GONE);
+        adapter.notifyDataSetChanged();
+    }
+
+    private void play(SeriesStore.Series series, String key) {
+        Context context = requireContext().getApplicationContext();
+        executor.execute(() -> {
+            try {
+                SeriesPlayback.play(context, series, key);
+            } catch (Exception error) {
+                if (root != null) {
+                    root.post(() -> showError(error));
+                }
+            }
+        });
+    }
+
+    private void showError(Exception error) {
+        if (root != null && isAdded()) {
+            Snackbar.make(root, getString(R.string.zip_failed, error.getMessage()), Snackbar.LENGTH_LONG).show();
         }
-    }
-
-    private void showEpisode(SeriesStore.EpisodeData episode) {
-        new MaterialAlertDialogBuilder(requireContext()).setTitle(episode.number() + " · " + episode.title())
-                .setMessage(R.string.zip_queue_note)
-                .setPositiveButton(R.string.zip_play_order, (dialog, which) -> play(episode))
-                .setNeutralButton(R.string.zip_transcript, (dialog, which) ->
-                        ((MainActivity) requireActivity()).loadChildFragment(
-                                SeriesTranscriptFragment.newInstance(episode.title(), episode.transcript())))
-                .setNegativeButton(android.R.string.cancel, null).show();
-    }
-
-    private void play(SeriesStore.EpisodeData episode) {
-        SeriesStore.Series series = selected;
-        Context context = requireContext().getApplicationContext();
-        LinearLayout currentRoot = root;
-        executor.execute(() -> {
-            try {
-                FeedItem first = SeriesPlayback.prepare(context, series, episode.key());
-                currentRoot.post(() -> {
-                    if (root == currentRoot && isAdded()) {
-                        new PlaybackServiceStarter(requireContext(), first.getMedia())
-                                .callEvenIfRunning(true).start();
-                    }
-                });
-            } catch (Exception error) {
-                currentRoot.post(() -> {
-                    if (isAdded()) {
-                        Toast.makeText(requireContext(), getString(R.string.zip_failed, error.getMessage()),
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-        });
-    }
-
-    private void showReport() {
-        Context context = requireContext().getApplicationContext();
-        LinearLayout currentRoot = root;
-        executor.execute(() -> {
-            String message;
-            String sourceUri = "";
-            try {
-                JSONObject report = new JSONObject(SeriesStore.readText(new File(SeriesStore.directory(context),
-                        "last-report.json")));
-                JSONArray issues = report.getJSONArray("issues");
-                StringBuilder detail = new StringBuilder();
-                for (int i = 0; i < issues.length(); i++) {
-                    detail.append(issues.getString(i)).append('\n');
-                }
-                int imported = report.optInt("imported");
-                sourceUri = imported > 0 ? report.optString("sourceUri") : "";
-                message = context.getString(R.string.zip_report_summary, imported, report.optInt("retained"),
-                        report.optInt("categories"), formatDuration(context, report.optLong("durationMs")),
-                        report.optLong("elapsedMs") / 1000.0, issues.length() == 0
-                                ? context.getString(R.string.zip_report_clean) : detail.toString());
-            } catch (Exception error) {
-                message = context.getString(R.string.zip_no_report);
-            }
-            String loaded = message;
-            String deletableSource = sourceUri;
-            currentRoot.post(() -> {
-                if (root != currentRoot || !isAdded()) {
-                    return;
-                }
-                TextView text = new TextView(requireContext());
-                text.setText(loaded);
-                text.setTextIsSelectable(true);
-                text.setPadding(dp(20), dp(12), dp(20), dp(12));
-                ScrollView scroll = new ScrollView(requireContext());
-                scroll.addView(text);
-                MaterialAlertDialogBuilder dialog = new MaterialAlertDialogBuilder(requireContext())
-                        .setTitle(R.string.zip_report).setView(scroll).setPositiveButton(android.R.string.ok, null);
-                if (!deletableSource.isEmpty() && !running) {
-                    dialog.setNeutralButton(R.string.zip_delete_source,
-                            (ignored, which) -> confirmDeleteSource(deletableSource));
-                }
-                dialog.show();
-            });
-        });
-    }
-
-    private void confirmDeleteSource(String source) {
-        new MaterialAlertDialogBuilder(requireContext()).setMessage(R.string.zip_delete_prompt)
-                .setNegativeButton(android.R.string.cancel, null)
-                .setPositiveButton(R.string.zip_delete_source, (dialog, which) -> {
-                    Context context = requireContext().getApplicationContext();
-                    executor.execute(() -> {
-                        boolean deleted;
-                        try {
-                            deleted = DocumentsContract.deleteDocument(context.getContentResolver(), Uri.parse(source));
-                        } catch (Exception error) {
-                            deleted = false;
-                        }
-                        int message = deleted ? R.string.zip_deleted : R.string.zip_delete_failed;
-                        new Handler(Looper.getMainLooper()).post(() -> Toast.makeText(context, message, Toast.LENGTH_LONG).show());
-                    });
-                }).show();
-    }
-
-    private Button button(int label) {
-        Button button = new Button(requireContext());
-        button.setText(label);
-        return button;
-    }
-
-    private int dp(int value) {
-        return (int) (value * getResources().getDisplayMetrics().density);
-    }
-
-    private static String formatDuration(Context context, long milliseconds) {
-        return context.getString(R.string.zip_duration, milliseconds / 60000, milliseconds / 1000 % 60);
     }
 
     @Override
@@ -603,49 +588,50 @@ public class SeriesLibraryFragment extends Fragment {
 
         @Override
         public View getView(int position, View recycled, ViewGroup parent) {
-            LinearLayout row = new LinearLayout(requireContext());
-            row.setPadding(dp(12), dp(12), dp(12), dp(12));
-            ImageView cover = new ImageView(requireContext());
-            cover.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            row.addView(cover, new LinearLayout.LayoutParams(dp(72), dp(72)));
-            LinearLayout labels = new LinearLayout(requireContext());
-            labels.setOrientation(LinearLayout.VERTICAL);
-            labels.setPadding(dp(12), 0, 0, 0);
-            row.addView(labels, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
-            TextView title = new TextView(requireContext());
-            title.setTextSize(18);
-            labels.addView(title);
-            TextView summary = new TextView(requireContext());
-            labels.addView(summary);
-            String image = "";
-            if (selected == null) {
-                SeriesStore.Series series = seriesList.get(position);
-                title.setText(series.title());
-                long duration = 0;
-                for (SeriesStore.EpisodeData episode : series.episodes()) {
-                    duration += episode.durationMs();
-                    if (image.isEmpty() && !episode.cover().isEmpty()) {
-                        image = episode.cover();
-                    }
-                }
-                summary.setText(getString(R.string.zip_series_summary, series.episodes().size(),
-                        series.categories().size(), formatDuration(requireContext(), duration)));
+            Context context = requireContext();
+            LinearLayout row = PaperUi.row(context);
+            String image;
+            String primary;
+            String secondary;
+            int percent = 0;
+            SeriesStore.EpisodeData episode = selected == null ? null : displayed.get(position);
+            SeriesStore.Series series = selected == null ? seriesList.get(position) : selected;
+            if (episode == null) {
+                primary = series.title();
+                secondary = getString(R.string.paper_episode_count, series.episodes().size());
+                image = series.episodes().isEmpty() ? "" : series.episodes().get(0).cover();
+                row.setOnClickListener(view -> openProgramme(series));
             } else {
-                SeriesStore.EpisodeData episode = displayed.get(position);
-                FeedItem item = items.get(episode.key());
-                int percent = item == null || item.getMedia() == null ? 0 : item.isPlayed() ? 100
-                        : (int) Math.min(100L, item.getMedia().getPosition() * 100L / Math.max(1, episode.durationMs()));
-                title.setText(episode.number() + " · " + episode.title());
-                summary.setText(getString(R.string.zip_episode_summary, episode.category(),
-                        formatDuration(requireContext(), episode.durationMs()), percent));
-                ProgressBar played = new ProgressBar(requireContext(), null, android.R.attr.progressBarStyleHorizontal);
-                played.setMax(100);
-                played.setProgress(percent);
-                labels.addView(played);
+                primary = episode.number() + " · " + episode.title();
+                secondary = episode.category() + " · " + getString(R.string.zip_duration,
+                        episode.durationMs() / 60000, episode.durationMs() / 1000 % 60);
                 image = episode.cover();
+                FeedItem item = items.get(episode.key());
+                percent = item == null || item.getMedia() == null ? 0 : item.isPlayed() ? 100
+                        : (int) Math.min(100L, item.getMedia().getPosition() * 100L / Math.max(1, episode.durationMs()));
+                row.setOnClickListener(view -> ((MainActivity) requireActivity()).loadChildFragment(
+                        SeriesEpisodeFragment.newInstance(series.feedId(), episode.key())));
             }
-            if (!image.isEmpty()) {
-                Glide.with(SeriesLibraryFragment.this).load(new File(image)).into(cover);
+            row.addView(PaperUi.cover(SeriesLibraryFragment.this, image, episode == null ? 72 : 52));
+            LinearLayout labels = PaperUi.column(context);
+            labels.setPadding(PaperUi.dp(context, 14), 0, PaperUi.dp(context, 10), 0);
+            labels.setBackgroundColor(Color.TRANSPARENT);
+            TextView heading = PaperUi.text(context, primary, episode == null ? 18 : 16, false);
+            heading.setTypeface(Typeface.create(episode == null ? "serif" : "sans-serif", Typeface.BOLD));
+            labels.addView(heading);
+            labels.addView(PaperUi.text(context, secondary, 13, true));
+            if (episode != null) {
+                ProgressBar listened = new ProgressBar(context, null, android.R.attr.progressBarStyleHorizontal);
+                listened.setMax(100);
+                listened.setProgress(percent);
+                labels.addView(listened, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                        PaperUi.dp(context, 4)));
+            }
+            row.addView(labels, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+            if (episode != null) {
+                MaterialButton play = PaperUi.play(context);
+                play.setOnClickListener(view -> play(series, episode.key()));
+                row.addView(play);
             }
             return row;
         }

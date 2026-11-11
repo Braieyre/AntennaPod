@@ -9,7 +9,7 @@ android {
         vectorDrawables.useSupportLibrary true
         vectorDrawables.generatedDensities = []
 
-        testApplicationId "com.homeo.sixmin.kitchen.tests"
+        testApplicationId "com.homeo.mypodcasts.tests"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         resourceConfigurations += ["en", "ar", "br", "ca", "cs", "da", "de", "el", "es", "et", "eu", "fa", "fi", "fr", "gl", "hi", "hu", "in", "it", "iw", "ja", "ko", "lt", "nb", "nl", "pl", "pt", "pt-rBR", "ro", "ru", "sc", "sk", "sl", "sr", "sv", "tr", "uk", "zh-rCN", "zh-rTW"]
 

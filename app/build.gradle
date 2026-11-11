@@ -9,31 +9,48 @@ android {
     namespace "de.danoeh.antennapod"
 
     defaultConfig {
-        applicationId "com.homeo.sixmin.kitchen"
+        applicationId "com.homeo.mypodcasts"
         // Version code schema:
         // "1.2.3-beta4"    -> 1020304
         // "1.2.3"          -> 1020395
-        versionCode 3130002
-        versionName "1.0.1-preview"
+        versionCode 3130100
+        versionName "1.1.0"
     }
+
+    def releaseCredentials = [
+        storeFile: System.getenv("MYPODCASTS_STORE_FILE"),
+        storePassword: System.getenv("MYPODCASTS_STORE_PASSWORD"),
+        keyAlias: System.getenv("MYPODCASTS_KEY_ALIAS"),
+        keyPassword: System.getenv("MYPODCASTS_KEY_PASSWORD")
+    ]
+    def hasReleaseCredentials = releaseCredentials.values().every { it != null && !it.isBlank() }
 
     signingConfigs {
         releaseConfig {
-            enableV1Signing true
-            enableV2Signing true
-            storeFile file(project.getProperties().getOrDefault("releaseStoreFile", "keystore"))
-            storePassword project.getProperties().getOrDefault("releaseStorePassword", "password")
-            keyAlias project.getProperties().getOrDefault("releaseKeyAlias", "alias")
-            keyPassword project.getProperties().getOrDefault("releaseKeyPassword", "password")
+            if (hasReleaseCredentials) {
+                enableV1Signing true
+                enableV2Signing true
+                storeFile file(releaseCredentials.storeFile)
+                storePassword releaseCredentials.storePassword
+                keyAlias releaseCredentials.keyAlias
+                keyPassword releaseCredentials.keyPassword
+            }
+        }
+    }
+
+    gradle.taskGraph.whenReady { graph ->
+        if (graph.allTasks.any { it.project == project && it.name.toLowerCase().contains("release") }
+                && (!hasReleaseCredentials || !file(releaseCredentials.storeFile).isFile())) {
+            throw new GradleException("Production signing is required. Run scripts/build-release.sh with your dedicated key.")
         }
     }
 
     buildTypes {
         debug {
-            resValue "string", "provider_authority", "com.homeo.sixmin.kitchen.provider"
+            resValue "string", "provider_authority", "com.homeo.mypodcasts.provider"
         }
         release {
-            resValue "string", "provider_authority", "com.homeo.sixmin.kitchen.provider"
+            resValue "string", "provider_authority", "com.homeo.mypodcasts.provider"
             minifyEnabled true
             shrinkResources true
             signingConfig signingConfigs.releaseConfig
@@ -42,6 +59,9 @@ android {
     }
 
     testBuildType = project.findProperty("testBuildType") ?: "debug"
+    if (project.hasProperty("zipFixtureDir")) {
+        sourceSets.androidTest.assets.srcDir(project.property("zipFixtureDir"))
+    }
 
     lint {
         disable 'CheckResult', 'MissingMediaBrowserServiceIntentFilter', 'UnusedAttribute', 'InflateParams',

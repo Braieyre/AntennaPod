@@ -7,10 +7,10 @@
 ## 使用
 
 1. 打开首页“我的播客”，点“导入压缩包”，在系统文件选择器中选一个 ZIP。
-2. 等待后台复制、解压、校验和入库。可以取消，失败后可重试；完成报告逐条显示异常。有效剧集会导入，缺文件或损坏的剧集会说明原因。
-3. 选择节目，按分类筛选或搜索标题。点剧集可按学习顺序播放，也可打开全文文字稿；文字稿支持关键词高亮和前后匹配跳转。
+2. 等待后台复制、解压、校验和入库。可以取消，失败后可重试；导入记录逐条显示异常。有效剧集会导入，缺文件或损坏的剧集会说明原因。
+3. 选择节目，按分类筛选或搜索标题。点标题进入剧集详情，点右侧播放键按学习顺序播放；详情中可打开全文文字稿；文字稿支持关键词高亮和前后匹配跳转。
 4. 点击底部播放条进入 AntennaPod 原有播放器，可调倍速、设置睡眠倒计时；通知栏、锁屏和耳机控制沿用原实现。
-5. 完成报告默认保留原 ZIP。只有点“删除原压缩包”并确认后才尝试删除；文件提供方不允许删除时会提示。
+5. 原 ZIP 默认保留。仅在“设置 → 导入记录”主动选择删除并确认后才尝试删除；删除成功或确认文件不存在后，该记录不再提供删除入口。打开软件不自动弹报告或删除提示。
 
 播放一个系列时，当前播放队列会替换为从选中集开始的系列顺序。首页菜单可进入原有 RSS 首页，原有订阅、搜索、下载和同步入口保留。未新增账号、服务器、遥测或上传功能；本地导入与播放无需网络。原有 RSS 联网功能及其设置仍由用户自行使用。
 
@@ -58,21 +58,35 @@ git clone --branch feat/sixmin-zip-library https://github.com/Braieyre/AntennaPo
 JAVA_HOME=/opt/homebrew/opt/openjdk@21 ANDROID_HOME=/opt/homebrew/share/android-commandlinetools ./gradlew :app:assembleDebug
 ```
 
-产物位于 `app/build/outputs/apk/free/debug/app-free-debug.apk` 和 `app/build/outputs/apk/play/debug/app-play-debug.apk`。交付优先使用 Free debug APK，可直接侧载；未打包用户的音频、封面或文字稿。debug 由本机 Android debug 密钥签名。Free/Play 使用相同应用 ID，属于两个构建口味，不可作为两个不同应用同时安装。
+调试产物位于 `app/build/outputs/apk/free/debug/app-free-debug.apk` 和 `app/build/outputs/apk/play/debug/app-play-debug.apk`，只用于开发检查。正式交付使用 **Free Release v1.1.0**，开启代码与资源压缩，不可调试，不包含用户音频、封面或文字稿。
 
-应用显示名称为“我的播客”，图标及启动画面使用通用麦克风与声波图形。应用 ID 沿用首版的 `com.homeo.sixmin.kitchen`，debug 不额外加后缀，可与原版 AntennaPod 共存。这个历史安装标识仅用于兼容已有安装与私有数据，不代表应用主题；使用相同签名的新版本可直接覆盖升级。源码 Java namespace 保留上游名称，方便后续合并上游代码。应用名称由 common.gradle 中 app_name 设置，“关于”页保留上游归属与 GPL-3.0 说明。
+应用名称“我的播客”，A 方案暖纸、陶土、青绿色调，图标为抽象声场。正式包名 **`com.homeo.mypodcasts`**，版本码 `3130100`。与历史体验版 `com.homeo.sixmin.kitchen` 可并存，新装后需重新选择 ZIP 导入。源码 Java namespace 保留上游名称，方便合并上游代码；“关于”保留上游归属、GPL 与源码入口。Free/Play 使用相同包名，不作为两个不同应用同时安装。
 
-已有安装建议保持包名和签名不变。为全新独立分发改包名时，同步修改 app/build.gradle 的 applicationId 与两处 provider_authority、common.gradle 的 testApplicationId，并检查 APK 最终清单。不要全仓库替换 Java namespace。
+另行改包名时，同步修改 `app/build.gradle` 的 applicationId 与 provider_authority、`common.gradle` 的 testApplicationId，再检查最终 APK 清单。不要全仓库替换 Java namespace。
 
-### Release 签名
+### 正式版签名与构建
 
-本次交付 debug；未生成或代管正式发布私钥。自行创建并妥善备份密钥（命令会交互式询问密码）：
+本机专用 RSA-4096 发布密钥保存在仓库外 `~/keys/my-podcasts-release.p12`，别名 `mypodcasts`；口令保存在 macOS 钥匙串服务 `com.homeo.mypodcasts.release`，账户为当前用户。脚本读取钥匙串并通过环境变量传给 Gradle，口令不写入源码或日志。
 
 ```sh
-keytool -genkeypair -v -keystore podcast-release.jks -alias podcast -keyalg RSA -keysize 3072 -validity 10000
+./scripts/build-release.sh
 ```
 
-在仓库外的 Gradle 用户属性文件中设置 `releaseStoreFile`（密钥绝对路径）、`releaseStorePassword`、`releaseKeyAlias`、`releaseKeyPassword`，然后运行 `./gradlew :app:assembleFreeRelease`。请勿提交密钥、口令或 local.properties。同一包名必须沿用同一签名才可覆盖升级；debug 换 release 签名不能直接覆盖安装，卸载又会删除私有库，切换前保留原 ZIP。对外分发 APK 时同时提供该 APK 对应版本的完整源码与 LICENSE。
+产物：`app/build/outputs/apk/free/release/app-free-release.apk`。缺少正式密钥或口令会失败，不回退到 debug 签名或默认口令。
+
+其他机器可自行创建独立发布密钥，并设置 `MYPODCASTS_STORE_FILE`、`MYPODCASTS_STORE_PASSWORD`、`MYPODCASTS_KEY_ALIAS`、`MYPODCASTS_KEY_PASSWORD` 四个环境变量，运行 `./gradlew :app:assembleFreeRelease`。其他密钥签出的 APK 不能覆盖本发行版。私钥和口令不能提交到 GitHub。
+
+使用 Android 官方 [apksigner](https://developer.android.com/tools/apksigner) 检查最终 APK 签名：
+
+```sh
+$ANDROID_HOME/build-tools/36.0.0/apksigner verify --verbose --print-certs app/build/outputs/apk/free/release/app-free-release.apk
+```
+
+### 密钥备份
+
+将 `~/keys/my-podcasts-release.p12` 另存到加密离线介质，并在密码管理器中单独保存钥匙串中的口令。通过“钥匙串访问”搜索 `com.homeo.mypodcasts.release` 获取口令；不要把密钥和明文口令放在同一公开位置。后续同包名更新必须使用此密钥；丢失密钥将无法继续覆盖升级。仓库、源码压缩包与 APK 附件均不包含密钥或口令。
+
+对外分发时同时提供该 APK 对应标签的完整 GPL-3.0 源码与 LICENSE。正式版本标签为 `v1.1.0`；历史 prerelease 保留作回溯，不代表当前正式版。
 
 ## 验证
 

@@ -38,6 +38,7 @@ public class ZipImportWorker extends Worker {
             if (parent == null || (!parent.mkdirs() && !parent.isDirectory())) {
                 throw new IOException(archive.toString());
             }
+            ImportHistory.list(context);
             String source = getInputData().getString(URI);
             if (source == null) {
                 throw new IOException();
@@ -70,6 +71,7 @@ public class ZipImportWorker extends Worker {
             JSONObject reportJson = new JSONObject(SeriesStore.readText(reportFile));
             reportJson.put("sourceUri", source);
             SeriesStore.writeJson(reportFile, reportJson);
+            ImportHistory.record(context, getId().toString(), name, source, "complete", reportJson);
             return Result.success(new Data.Builder().putInt(IMPORTED, report.imported())
                     .putLong("feedId", report.feedId()).build());
         } catch (Exception error) {
@@ -80,6 +82,8 @@ public class ZipImportWorker extends Worker {
                 json.put("imported", 0);
                 json.put("issues", new JSONArray().put(message));
                 SeriesStore.writeJson(new File(SeriesStore.directory(context), "last-report.json"), json);
+                ImportHistory.record(context, getId().toString(), getInputData().getString(NAME),
+                        getInputData().getString(URI), isStopped() ? "cancelled" : "failed", json);
             } catch (Exception ignored) {
                 return Result.failure(new Data.Builder().putString(ERROR, message.substring(0,
                         Math.min(message.length(), 1500))).build());

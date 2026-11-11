@@ -1,19 +1,15 @@
 # Execution Status
 
-## Active Package
-WP-03
+WP-07 REVIEW pending root runtime review. Approved A implemented in native common pages: shared warm light/dark tokens and system titles, programme/category/episode navigation, direct play and episode detail, transcript search, fixed programme/queue/settings tabs, native mini/full player treatment, soundfield launcher/splash, settings rows/RSS secondary access, accurate upstream attribution and imported-only date hiding.
 
-## State
-DONE
+Import history: persisted per-task reports and consumed completion identity; no automatic report or deletion modal on launch; explicit source deletion, terminal deleted/missing states, failed/cancelled retry, serialized background enqueue guards current identity. Existing importer/audio/DB rules unchanged.
 
-## Delivered
-Generic 我的播客 identity; version1.0.1-preview; local APK and public prerelease v1.0.1-preview.1. Code commit4526ee659. Package/signature retained for data-safe upgrades. Kitchen series appears only as imported content/historical fixture.
+Evidence: exact JDK21/SDK ./gradlew :app:assembleDebug passed BUILD SUCCESSFUL in10s,1230 tasks(141 executed), full output ../verification/build-paper-debug.log. Subsequent retry UI/helper changes await root's in-progress final Release build. git diff --check passed. docs/ui-polish/scripts/check_ui_contract.py passes14 native text/button contrast pairs minimum4.85:1 and scoped copy/popup guards; output ../verification/paper-ui-contract.json. New ImportHistoryLifecycleTest covers current-only persistent completion, deleted/missing reopen/reimport, and null/RSS imported-date classification; root corrected Android Feed constructor before Release test compilation.
 
-## Evidence
-assembleDebug successful in8s; existing simulator app upgraded and cold-started. Feed IDs, media positions and played states identical before/after upgrade. System app label 我的播客 and microphone icon visually verified. Four GitHub assets match local SHA-256; source tag matches build commit. Evidence in ../verification and ../交付/我的播客-1.0.1.
+Root owns Release signing/package/build.gradle, fixture-only test APK, emulator acceptance/screenshots and release delivery. No Executor commits/pushes or signature/key edits. Runtime visual review, signed Release tests and final checks remain root-owned; physical phone/font/haptic evidence not claimed.
 
-## Next Action
-Await user experience feedback. No pending build/upload work.
+Release runtime correction: home render passed int0 to Toolbar.setNavigationIcon, causing ResourceNotFound. Fixed to explicit null Drawable overload; programme uses real paper_back resource. Searched custom UI resource setters for dynamic-zero alternatives, none else found. Root owns rebuild and runtime verification; no Gradle run by Executor.
 
-## Limits
-Debug signed preview; simulator verification only. No new behavioral tests for resource-only branding update; prior7 parser/6 Android tests remain historical functional evidence.
+Post-Release visual review bounded correction: intro expansion is wrap-content transparent48dp text action; categories have no stroke, transparent unselected/soft rounded selected fill, and selected labels use new shared light/dark teal accent tokens. Native contrast guard now16 pairs (including teal selected label) passes. Added unsupported test-only file URI deletion regression expecting persisted error without crash. Root rebuild/test pending; no Executor Gradle.
+
+External deletion correction: Downloads DocumentsProvider can retain metadata after underlying ZIP disappears. inspectSource now opens/closes read descriptor after successful metadata query on existing background executor; FileNotFoundException persists missing, null descriptor/other IOException/security preserve unavailable. Deleted/missing terminal fast paths unchanged. Root to rebuild and repeat real SAF external-delete/reopen verification. No Gradle run.

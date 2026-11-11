@@ -11,25 +11,31 @@
     <color name="feed_text_bg">#55333333</color>
 
     <!-- Theme colors -->
-    <color name="background_light">#f9fcff</color>
-    <color name="background_elevated_light">#EFEEEE</color>
-    <color name="background_darktheme">#21272b</color>
-    <color name="background_elevated_darktheme">#2D3337</color>
+    <color name="background_light">#F6F1E8</color>
+    <color name="background_elevated_light">#FFFCF6</color>
+    <color name="background_darktheme">#24272A</color>
+    <color name="background_elevated_darktheme">#2D3033</color>
     <color name="non_square_icon_background">#22777777</color>
     <color name="seek_background_light">#90000000</color>
     <color name="seek_background_dark">#905B5B5B</color>
-    <color name="text_color_secondary_light">#444444</color>
-    <color name="text_color_secondary_dark">#cccccc</color>
-    <color name="color_surface_variant_light">#D3DCE0</color>
-    <color name="color_surface_variant_dark">#2F3B4F</color>
-    <color name="color_secondary_container_light">#C8D8DE</color>
-    <color name="color_secondary_container_dark">#3C4E68</color>
+    <color name="text_color_secondary_light">#6A5C51</color>
+    <color name="text_color_secondary_dark">#C6B6A6</color>
+    <color name="color_surface_variant_light">#E9DED0</color>
+    <color name="color_surface_variant_dark">#45423F</color>
+    <color name="color_secondary_container_light">#E9DED0</color>
+    <color name="color_secondary_container_dark">#45423F</color>
 
-    <color name="accent_light">#0078C2</color>
-    <color name="accent_dark">#3D8BFF</color>
+    <color name="accent_light">#9B4F36</color>
+    <color name="accent_dark">#E0A17C</color>
 
     <color name="gradient_000">#364ff3</color>
     <color name="gradient_025">#2E6FF6</color>
     <color name="gradient_075">#1EB0FC</color>
     <color name="gradient_100">#16d0ff</color>
+    <color name="paper_secondary_accent_light">#315F5B</color>
+    <color name="paper_secondary_accent_dark">#9BC7B7</color>
+    <color name="paper_text_light">#302A25</color>
+    <color name="paper_text_dark">#F4EADF</color>
+    <color name="paper_on_primary_dark">#34231A</color>
+    <color name="paper_on_primary_light">#FFF9F1</color>
 </resources>

@@ -1,0 +1,124 @@
+{
+  "palettes": {
+    "A": {
+      "light": {
+        "bg": "#F6F1E8",
+        "surface": "#FFFCF6",
+        "text": "#302A25",
+        "muted": "#6A5C51",
+        "primary": "#9B4F36",
+        "on": "#FFF9F1",
+        "tone": "#E9DED0",
+        "line": "#DCD0BF",
+        "accent": "#315F5B"
+      },
+      "dark": {
+        "bg": "#24272A",
+        "surface": "#2D3033",
+        "text": "#F4EADF",
+        "muted": "#C6B6A6",
+        "primary": "#E0A17C",
+        "on": "#34231A",
+        "tone": "#45423F",
+        "line": "#5D5852",
+        "accent": "#9BC7B7"
+      }
+    },
+    "B": {
+      "light": {
+        "bg": "#EFF4F8",
+        "surface": "#FFFDF8",
+        "text": "#243748",
+        "muted": "#526775",
+        "primary": "#32648A",
+        "on": "#FFFFFF",
+        "tone": "#DCE8EF",
+        "line": "#CFDCE5",
+        "accent": "#53766B"
+      },
+      "dark": {
+        "bg": "#202C37",
+        "surface": "#293846",
+        "text": "#F4F3EC",
+        "muted": "#B9CAD7",
+        "primary": "#A2CCE7",
+        "on": "#18354C",
+        "tone": "#374B5B",
+        "line": "#4B5D6B",
+        "accent": "#A6C8B8"
+      }
+    },
+    "C": {
+      "light": {
+        "bg": "#F2EFE9",
+        "surface": "#FFFDF8",
+        "text": "#302E3A",
+        "muted": "#675E6B",
+        "primary": "#79516B",
+        "on": "#FFF9F3",
+        "tone": "#E8DFE8",
+        "line": "#D8CFDA",
+        "accent": "#536C5E"
+      },
+      "dark": {
+        "bg": "#25242C",
+        "surface": "#302F38",
+        "text": "#F4EDE4",
+        "muted": "#C2B8CB",
+        "primary": "#CAA6C9",
+        "on": "#392B3E",
+        "tone": "#423D4B",
+        "line": "#504957",
+        "accent": "#8DCEC4"
+      }
+    }
+  },
+  "typography": {
+    "page_title_sp": 28,
+    "content_title_sp": 20,
+    "section_sp": 18,
+    "body_sp": 16,
+    "secondary_sp": 13,
+    "minimum_secondary_sp": 12.5,
+    "body_line_height": 1.65,
+    "font_strategy": "system sans; A titles may use system serif; no bundled font"
+  },
+  "spacing_dp": [
+    4,
+    8,
+    12,
+    16,
+    20,
+    24,
+    32
+  ],
+  "radii_dp": {
+    "button": 24,
+    "cover_small": 12,
+    "cover_large": 20,
+    "panel": 24
+  },
+  "minimum_touch_dp": 48,
+  "motion_ms": {
+    "press": 90,
+    "state": 180,
+    "exit": 200,
+    "enter": 220,
+    "shared_expand": 260,
+    "complete_total": 420
+  },
+  "curves": {
+    "enter": [
+      0.05,
+      0.7,
+      0.1,
+      1
+    ],
+    "exit": [
+      0.3,
+      0,
+      0.8,
+      0.15
+    ]
+  }
+}

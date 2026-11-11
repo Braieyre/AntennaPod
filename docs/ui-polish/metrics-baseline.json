@@ -1,0 +1,1816 @@
+{
+  "schema_version": 1,
+  "source_commit": "e12b3be73f57769b410d5035d8031fb971afd144",
+  "scope": {
+    "default_xml": "Tracked source paths **/src/main/res/values/*.xml, string/string-array/plurals; values-* translations excluded",
+    "custom_xml": "resource name starts zip_ or kitchen_brand_; array items count individually",
+    "java_ui": [
+      "app/src/main/java/de/danoeh/antennapod/zipimport/SeriesLibraryFragment.java",
+      "app/src/main/java/de/danoeh/antennapod/zipimport/SeriesTranscriptFragment.java"
+    ],
+    "excluded": [
+      "Imported podcast titles, summaries, episode text and transcript bodies",
+      "logs, file paths, worker state keys, model/importer source strings",
+      "translated values-* resources",
+      "generated Gradle app_name from XML totals",
+      "runtime screen rendering, offscreen visibility and popup frequency"
+    ],
+    "long_threshold": "Unicode characters >40 after removing printf placeholders and normalizing whitespace; not English word count"
+  },
+  "all_default_xml": {
+    "entries": 1141,
+    "han_characters": 511,
+    "characters_without_placeholders": 30580,
+    "entries_over_40_characters": 194,
+    "entries_over_40_raw_characters": 201,
+    "entries_with_at_least_2_han": 59,
+    "long_entries": [
+      {
+        "file": "app/src/main/res/values/design_time_attributes.xml",
+        "key": "design_time_lorem_ipsum",
+        "length": 395,
+        "text": "\n        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ullamcorper\n        tempor metus, at varius tellus dignissim et. Fusce quis justo sollicitudin,\n        feugiat mi in, accumsan erat. Fusce tempor, sapien ut luctus scelerisque,\n        lectus nisi hendrerit odio, eget mattis lorem massa id eros. Integer consequat\n        tellus eu rhoncus pellentesque. Quisque et leo faucibus, aliquam nisi ut,\n        feugiat lectus.\n    "
+      },
+      {
+        "file": "app/src/main/res/values/design_time_attributes.xml",
+        "key": "design_time_downloaded_log_failure_reason",
+        "length": 142,
+        "text": "\n        IO Error: failed to connect to feeds.example.com/100.100.100.100\n        (port 80) after 3000ms: isConnected failed: ECONNREFUSED (Connection refused)\n    "
+      },
+      {
+        "file": "app/src/main/res/values/svg.xml",
+        "key": "svg_animatable_play",
+        "length": 58,
+        "text": "M 8 5 L 8 12 L 19 12 L 19 12 M 8 19 L 8 12 L 19 12 L 19 12"
+      },
+      {
+        "file": "app/src/main/res/values/svg.xml",
+        "key": "svg_animatable_pause",
+        "length": 57,
+        "text": "M 5 6 L 5 10 L 19 10 L 19 6 M 5 18 L 5 14 L 19 14 L 19 18"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "swipeactions_summary",
+        "length": 53,
+        "text": "Choose what happens when swiping an episode in a list"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "statistics_include_marked",
+        "length": 59,
+        "text": "Include duration of episodes that are just marked as played"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "statistics_speed_not_counted",
+        "length": 51,
+        "text": "Notice: Playback speed is never taken into account."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "statistics_reset_data_msg",
+        "length": 98,
+        "text": "This will erase the history of duration played for all episodes. Are you sure you want to proceed?"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "home_no_recent_unplayed_episodes_text",
+        "length": 71,
+        "text": "You already played all recent episodes. Nothing to be surprised here ;)"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "home_continue_empty_text",
+        "length": 94,
+        "text": "You can add episodes by downloading them or long-pressing them and selecting \\\"Add to queue\\\"."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "home_new_empty_text",
+        "length": 87,
+        "text": "New episodes will show up here. You can then decide whether you are interested in them."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "home_downloads_empty_text",
+        "length": 53,
+        "text": "You can download any episode to listen to it offline."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "home_welcome_text",
+        "length": 75,
+        "text": "You are not subscribed to any podcasts yet. Open the menu to add a podcast."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "drawer_feed_counter_downloaded_unplayed",
+        "length": 42,
+        "text": "Number of downloaded and unplayed episodes"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "confirm_export_log_dialog_message",
+        "length": 80,
+        "text": "Detailed logs may contain sensitive information, such as your subscriptions list"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "clear_playback_history_msg",
+        "length": 78,
+        "text": "This will clear the entire playback history. Are you sure you want to proceed?"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "feed_volume_adaptation_summary",
+        "length": 52,
+        "text": "Turn volume for episodes of this podcast up or down: %1$s"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "feed_new_episodes_action_summary_autodownload",
+        "length": 104,
+        "text": "Automatic download enabled. Episodes are added to the inbox and then moved to the queue once downloaded."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "feed_new_episodes_action_snackbar",
+        "length": 53,
+        "text": "Cannot be changed when automatic download is enabled."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "episode_notification_summary",
+        "length": 50,
+        "text": "Show a notification when a new episode is released"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "remove_all_inbox_confirmation_msg",
+        "length": 58,
+        "text": "Please confirm that you want to remove all from the inbox."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "multi_select_mark_played_confirmation",
+        "length": 66,
+        "text": "Please confirm that you want to mark all selected items as played."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "multi_select_mark_unplayed_confirmation",
+        "length": 68,
+        "text": "Please confirm that you want to mark all selected items as unplayed."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "share_not_supported_local_feed",
+        "length": 42,
+        "text": "Sharing is not supported for local folders"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "feed_delete_explanation_delete",
+        "length": 111,
+        "text": "Unsubscribing removes the subscription including all its episodes, downloads, playback history, and statistics."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "feed_delete_explanation_archive",
+        "length": 133,
+        "text": "Archiving hides the subscription from the list and stops looking for new episodes. Downloads, statistics and playback state are kept."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "refresh_failed_msg",
+        "length": 41,
+        "text": "Last refresh failed. Tap to view details."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "please_wait_before_refreshing",
+        "length": 55,
+        "text": "Please wait some time before refreshing podcasts again."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "delete_tag_confirmation",
+        "length": 52,
+        "text": "Please confirm that you want to delete the tag \\\"%1$s\\\"."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "confirm_mobile_feed_refresh_dialog_message",
+        "length": 107,
+        "text": "Refreshing podcasts over mobile data connection is disabled in the settings.\\n\\nDo you want to refresh anyway?"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "confirm_mobile_feed_refresh_dialog_message_vpn",
+        "length": 250,
+        "text": "Your VPN app pretends to be a mobile network (metered connection). Refreshing podcasts over mobile data connection is disabled in the settings.\\n\\nDo you want to refresh anyway? If you want this problem to be fixed, contact the creators of your VPN app."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "delete_downloads_played_confirmation",
+        "length": 60,
+        "text": "Please confirm that you want to delete all played downloads."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "play_this_to_seek_position_message",
+        "length": 50,
+        "text": "To jump to positions, you need to play the episode"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "visit_social_interact_confirm_dialog_message",
+        "length": 49,
+        "text": "Please make sure that you trust the website \\\"%1$s\\\"."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "delete_local_feed_confirmation_dialog_message",
+        "length": 147,
+        "text": "Deleting removes the episode from AntennaPod and deletes the media file from your device storage. It cannot be downloaded again through AntennaPod."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "download_error_retrying",
+        "length": 47,
+        "text": "Download of \\\"%1$s\\\" failed. Will be retried later."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "download_error_insufficient_space",
+        "length": 46,
+        "text": "There is not enough space left on your device."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "download_error_parser_exception",
+        "length": 184,
+        "text": "The podcast host\\'s server sent a broken podcast feed. We recommend checking with a podcast validator such as castfeedvalidator.com and contacting the podcast creator to let them know."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "download_error_unsupported_type_html",
+        "length": 57,
+        "text": "The podcast host\\'s server sent a website, not a podcast."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "download_error_unsupported_type_html_manual",
+        "length": 72,
+        "text": "The address you entered is a website address, not a podcast RSS address."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "download_error_not_found",
+        "length": 90,
+        "text": "The podcast host\\'s server does not know where to find the file. It may have been deleted."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "download_error_unknown_host",
+        "length": 109,
+        "text": "Cannot find the server. Check if the address is typed correctly and if you have a working network connection."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "download_error_unauthorized",
+        "length": 71,
+        "text": "Authentication error. Make sure that username and password are correct."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "download_error_forbidden",
+        "length": 46,
+        "text": "The podcast host\\'s server refuses to respond."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "download_error_wrong_size",
+        "length": 61,
+        "text": "The server connection was lost before completing the download"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "download_error_blocked",
+        "length": 82,
+        "text": "The download was blocked by another app on your device (like a VPN or ad blocker)."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "download_error_certificate",
+        "length": 195,
+        "text": "Unable to establish a secure connection. This can mean that another app on your device (like a VPN or an ad blocker) blocked the download, or that something is wrong with the server certificates."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "null_value_podcast_error",
+        "length": 131,
+        "text": "The link you tapped does not contain a valid podcast URL. Please verify the link and try again, or search for the podcast manually."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "no_feed_url_podcast_found_by_search",
+        "length": 91,
+        "text": "The suggested podcast did not have an RSS link, AntennaPod found a podcast that could match"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "confirm_mobile_download_dialog_message",
+        "length": 149,
+        "text": "Downloading over mobile data connection is disabled in the settings. AntennaPod can download the episode later automatically when Wi-Fi is available."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "confirm_mobile_download_dialog_message_vpn",
+        "length": 255,
+        "text": "- Using a VPN? Your VPN app pretends to be a mobile network (metered connection). If you want this problem fixed, contact the creators of your VPN app.\\n- Not using a VPN? Open the Android Wi-Fi settings and change the type of your Wi-Fi to not be metered."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "mobile_download_notice[one]",
+        "length": 59,
+        "text": "Downloading over mobile data connection for the next %d minute"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "mobile_download_notice[other]",
+        "length": 60,
+        "text": "Downloading over mobile data connection for the next %d minutes"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "confirm_mobile_streaming_notification_message",
+        "length": 88,
+        "text": "Streaming over mobile data connection is disabled in the settings. Tap to stream anyway."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "playback_error_generic",
+        "length": 316,
+        "text": "The media file could not be played.\\n\\n- Try deleting and re-downloading the episode.\\n- Check your network connection, and make sure no VPN or login page is blocking access.\\n- Try long-pressing and sharing the \\\"Media address\\\" to your web browser to see if it can be played there. If not, contact the podcast creators."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "queue_lock_warning",
+        "length": 58,
+        "text": "If you lock the queue, you can no longer reorder episodes."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "clear_queue_confirmation_msg",
+        "length": 67,
+        "text": "Please confirm that you want to remove ALL episodes from the queue."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "no_items_label",
+        "length": 87,
+        "text": "Add an episode by downloading it, or long press an episode and select \\\"Add to queue\\\"."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "no_queue_items_inbox_has_items_label",
+        "length": 64,
+        "text": "No episodes lined up, but there are new episodes that await you!"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "no_comp_downloads_label",
+        "length": 56,
+        "text": "You can download episodes on the podcast details screen."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "no_log_downloads_label",
+        "length": 46,
+        "text": "Download logs will appear here when available."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "no_history_label",
+        "length": 52,
+        "text": "After you listen to an episode, it will appear here."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "no_fav_episodes_label",
+        "length": 52,
+        "text": "Mark episodes as favorites by tapping the star icon."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "no_all_episodes_label",
+        "length": 56,
+        "text": "When you add a podcast, the episodes will be shown here."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "no_all_episodes_filtered_label",
+        "length": 45,
+        "text": "Try clearing the filter to see more episodes."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "no_subscriptions_label",
+        "length": 53,
+        "text": "To subscribe to a podcast, press the plus icon below."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "no_subscriptions_filtered_label",
+        "length": 50,
+        "text": "Try clearing the filter to see more subscriptions."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "no_archive_label",
+        "length": 60,
+        "text": "You can archive podcasts from the main subscriptions screen."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_episode_cleanup_summary",
+        "length": 90,
+        "text": "Episodes that should be eligible for removal if Auto Download needs space for new episodes"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_pauseOnDisconnect_sum",
+        "length": 68,
+        "text": "Pause playback when headphones or Bluetooth devices get disconnected"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_unpauseOnHeadsetReconnect_sum",
+        "length": 51,
+        "text": "Resume playback when the headphones get reconnected"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_unpauseOnBluetoothReconnect_sum",
+        "length": 41,
+        "text": "Resume playback when bluetooth reconnects"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_followQueue_sum",
+        "length": 47,
+        "text": "Jump to next queue item when playback completes"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_auto_delete_sum",
+        "length": 68,
+        "text": "Delete episodes after playing or when automatic download needs space"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_auto_local_delete_sum",
+        "length": 130,
+        "text": "Also delete files added through \\\"add local folder\\\". Note that these are not downloaded by AntennaPod and cannot be re-downloaded"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_auto_local_delete_dialog_body",
+        "length": 196,
+        "text": "Note that for local folders this will remove episodes from AntennaPod and delete their media files from your device storage. They cannot be downloaded again through AntennaPod. Enable auto delete?"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_smart_mark_as_played_sum",
+        "length": 99,
+        "text": "Mark episodes as played even if less than a certain amount of seconds of playing time is still left"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_favorite_keeps_episodes_sum",
+        "length": 43,
+        "text": "Keep episodes when they are marked favorite"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "playback_pref_sum",
+        "length": 41,
+        "text": "Headphone controls, Skip intervals, Queue"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "downloads_pref_sum",
+        "length": 68,
+        "text": "Update interval, Mobile data, Automatic download, Automatic deletion"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "feed_refresh_sum",
+        "length": 76,
+        "text": "Specify an interval at which AntennaPod looks for new episodes automatically"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_stream_over_download_sum",
+        "length": 57,
+        "text": "Display stream button instead of download button in lists"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_mobileUpdate_sum",
+        "length": 61,
+        "text": "Select what should be allowed over the mobile data connection"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "bottom_navigation_summary",
+        "length": 66,
+        "text": "Access the most important screens from everywhere, in a single tap"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "bottom_navigation_deprecation_warning",
+        "length": 312,
+        "text": "Unfortunately we have to remove side navigation in a future update. AntennaPod is developed by a small group of volunteers, and after maintaining both navigation styles for years, it has become too much overhead. \\n\\nIf you absolutely rely on side navigation, please disable updates for AntennaPod in your app store."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_nav_drawer_items_sum",
+        "length": 71,
+        "text": "Change which items appear in the navigation drawer or bottom navigation"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_automatic_download_global_description",
+        "length": 78,
+        "text": "Automatically download episodes from the inbox. Can be overridden per podcast."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_automatic_download_sum",
+        "length": 44,
+        "text": "Configure the automatic download of episodes"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_automatic_download_on_battery_sum",
+        "length": 57,
+        "text": "Allow automatic download when the battery is not charging"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_episode_cache_summary",
+        "length": 55,
+        "text": "Automatic download is stopped if this number is reached"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_episode_cover_summary",
+        "length": 122,
+        "text": "Use the episode specific cover in lists whenever available. If unchecked, the app will always use the podcast cover image."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_show_remain_time_summary",
+        "length": 98,
+        "text": "Display remaining time of episodes when checked. If unchecked, display total duration of episodes."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_playback_speed_sum",
+        "length": 58,
+        "text": "Customize the speeds available for variable speed playback"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_feed_playback_speed_sum",
+        "length": 74,
+        "text": "The speed to use when starting audio playback for episodes in this podcast"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_playback_time_respects_speed_sum",
+        "length": 61,
+        "text": "Displayed position and duration are adapted to playback speed"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_fast_forward_sum",
+        "length": 87,
+        "text": "Customize the number of seconds to jump forward when the fast-forward button is clicked"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_rewind_sum",
+        "length": 83,
+        "text": "Customize the number of seconds to jump backwards when the rewind button is clicked"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_expandNotify_sum",
+        "length": 63,
+        "text": "This usually expands the notification to show playback buttons."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_persistNotify_sum",
+        "length": 65,
+        "text": "Keep notification and lockscreen controls when playback is paused"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_full_notification_buttons_sum",
+        "length": 47,
+        "text": "Change the buttons on the playback notification"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_default_page_sum",
+        "length": 46,
+        "text": "Screen that is opened when starting AntennaPod"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_back_button_opens_drawer_summary",
+        "length": 72,
+        "text": "Pressing the back button on the default page opens the navigation drawer"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_delete_removes_from_queue_sum",
+        "length": 65,
+        "text": "Automatically remove an episode from the queue when it is deleted"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_downloads_button_action_sum",
+        "length": 64,
+        "text": "Display play button instead of delete button on downloads screen"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_feed_settings_dialog_msg",
+        "length": 86,
+        "text": "This setting is unique to each podcast. You can change it by opening the podcast page."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_global_default_episode_list_sort_order_sum",
+        "length": 59,
+        "text": "Choose the default order for episodes on the podcast screen"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "report_bug_message",
+        "length": 204,
+        "text": "Sorry to hear something isn’t working. We’d love your help to improve AntennaPod. Please check our forum or GitHub to see if the issue has already been reported. If not, let us know and we’ll investigate."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "contributors_summary",
+        "length": 102,
+        "text": "Everyone can help to make AntennaPod better - with code, translations or by helping users in our forum"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "import_export_summary",
+        "length": 46,
+        "text": "Move subscriptions and queue to another device"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "opml_export_summary",
+        "length": 50,
+        "text": "Transfer your subscriptions to another podcast app"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "opml_import_summary",
+        "length": 50,
+        "text": "Import your subscriptions from another podcast app"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "database_export_summary",
+        "length": 83,
+        "text": "Transfer subscriptions, listened episodes and queue to AntennaPod on another device"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "database_import_summary",
+        "length": 46,
+        "text": "Import AntennaPod database from another device"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "opml_reader_error",
+        "length": 128,
+        "text": "An error has occurred while reading the file. Make sure that you have actually selected an OPML file and that the file is valid."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "automatic_database_export_summary",
+        "length": 93,
+        "text": "Create a backup of the AntennaPod database every 3 days. Only keep the 5 most recent backups."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "database_import_warning",
+        "length": 165,
+        "text": "Importing a database will replace all of your current subscriptions and playing history. You should export your current database as a backup. Do you want to replace?"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "opml_import_ask_read_permission",
+        "length": 60,
+        "text": "Access to external storage is required to read the OPML file"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "import_no_downgrade",
+        "length": 131,
+        "text": "This database was exported with a newer version of AntennaPod. Your current installation does not yet know how to handle this file."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "sleep_timer_without_continuous_playback_message",
+        "length": 138,
+        "text": "Instead of always automatically enabling the sleep timer with one episode, please instead disable \\\"continuous playback\\\" in the settings."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "timer_exceeds_remaining_time_while_continuous_playback_disabled[one]",
+        "length": 76,
+        "text": "Continuous playback is disabled and the current episode has only %1$d minute left"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "timer_exceeds_remaining_time_while_continuous_playback_disabled[other]",
+        "length": 77,
+        "text": "Continuous playback is disabled and the current episode has only %1$d minutes left"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "multiple_sleep_episodes_while_continuous_playback_disabled",
+        "length": 91,
+        "text": "Continuous playback is disabled in the settings. Always stopping at the end of the episode."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "episodes_sleep_timer_exceeds_queue[other]",
+        "length": 42,
+        "text": "There are only %1$d episodes left in your queue"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "auto_enable_label",
+        "length": 57,
+        "text": "Automatically activate the sleep timer when pressing play"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "auto_enable_label_with_times",
+        "length": 69,
+        "text": "Automatically activate the sleep timer when pressing play between %1$s and %2$s"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "synchronization_summary_unchoosen",
+        "length": 100,
+        "text": "You can choose from multiple providers to synchronize your subscriptions and episode play state with"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "gpodnet_description",
+        "length": 156,
+        "text": "Gpodder.net is an open-source podcast synchronization service that you can install on your own server. Gpodder.net is independent of the AntennaPod project."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "synchronization_summary_nextcloud",
+        "length": 147,
+        "text": "Gpodder Sync is an open-source Nextcloud app that you can easily install on your own server. Gpodder Sync is independent of the AntennaPod project."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "synchronization_host_explanation",
+        "length": 144,
+        "text": "You can pick your own server to synchronize with. When you have identified your preferred synchronization server, please enter its address here."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "synchronization_provider_chooser_explanation",
+        "length": 186,
+        "text": "Devices need a central server to synchronize. AntennaPod does not offer such a central synchronization server, but allows you to connect with the different types of servers listed below."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "synchronization_nextcloud_authenticate_browser",
+        "length": 70,
+        "text": "Grant access using the opened web browser and come back to AntennaPod."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "synchronization_credentials_explanation",
+        "length": 77,
+        "text": "Please provide the credentials of your account on the synchronization server."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "synchronization_selectDevice_explanation",
+        "length": 92,
+        "text": "Please select the device that you created on the synchronization server or create a new one."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "gpodnetauth_finish_descr",
+        "length": 180,
+        "text": "Congratulations! Your gpodder.net account is now linked with your device. AntennaPod will from now on automatically sync subscriptions on your device with your gpodder.net account."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_gpodnet_setlogin_information_sum",
+        "length": 58,
+        "text": "Change the login information for your gpodder.net account."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "synchronization_sync_summary",
+        "length": 50,
+        "text": "Synchronize subscription and episode state changes"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "synchronization_force_sync_summary",
+        "length": 51,
+        "text": "Re-synchronize all subscriptions and episode states"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "synchronization_login_status",
+        "length": 94,
+        "text": "Logged in as %1$s on %2$s.\\n\\nYou can choose your synchronization provider again once you have logged out."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "gpodnetsync_username_characters_error",
+        "length": 68,
+        "text": "Usernames may only contain letters, digits, hyphens and underscores."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "nextcloud_login_error_generic",
+        "length": 189,
+        "text": "Unable to log into your Nextcloud.\\n\\n- Check your network connection.\\n- Confirm that you are using the correct server address.\\n- Make sure that the Gpodder Sync Nextcloud plugin is installed."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "choose_data_directory_message",
+        "length": 98,
+        "text": "Please choose the base of your data folder. AntennaPod will create the appropriate subdirectories."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "rating_contribute_label",
+        "length": 100,
+        "text": "Want to join? Whether you want to translate, support, design or code, we would be happy to have you!"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "rating_volunteers_label",
+        "length": 121,
+        "text": "AntennaPod is developed by volunteers in their free time. Share your appreciation of their work by leaving a nice rating."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "state_deleted_not_subscribed",
+        "length": 118,
+        "text": "You are not subscribed to this podcast yet. Subscribe for free to access it more easily and keep its playback history."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "authentication_descr",
+        "length": 67,
+        "text": "Change your username and password for this podcast and its episodes"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "feed_tags_summary",
+        "length": 67,
+        "text": "Change the tags of this podcast to help organize your subscriptions"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "multi_feed_common_tags_info",
+        "length": 87,
+        "text": "Only common tags from all selected subscriptions are shown. Other tags stay unaffected."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "episode_filters_description",
+        "length": 95,
+        "text": "List of terms used to decide if an episode should be included or excluded when auto downloading"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "exclude_terms",
+        "length": 50,
+        "text": "Exclude episodes containing any of the terms below"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "include_terms",
+        "length": 55,
+        "text": "Include only episodes containing any of the terms below"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "keep_updated_summary",
+        "length": 56,
+        "text": "Include this podcast when (auto-)refreshing all podcasts"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "edit_url_menu_summary",
+        "length": 71,
+        "text": "Risky: can permanently break episodes list, history, and playback state"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "edit_url_confirmation_msg",
+        "length": 335,
+        "text": "Changing the RSS address can easily break the playback state and episode listings of the podcast. We do NOT recommend changing it and will NOT provide support if anything goes wrong. This cannot be undone. The broken subscription CANNOT be repaired by simply changing the address back. We recommend creating a backup before continuing."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "rss_address_invalid",
+        "length": 41,
+        "text": "The RSS address you entered is not valid."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "reconnect_local_folder_summary",
+        "length": 97,
+        "text": "Risky: only reconnect to the exact same folder. Otherwise, you will lose all your playback state."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "reconnect_local_folder_warning",
+        "length": 116,
+        "text": "In case of permission denials, you can use this to reconnect to the exact same folder. Do not select another folder."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "local_feed_description",
+        "length": 66,
+        "text": "This virtual podcast was created by adding a folder to AntennaPod."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "notification_channel_user_action_description",
+        "length": 78,
+        "text": "Shown if your action is required, for example if you need to enter a password."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "notification_channel_downloading_description",
+        "length": 43,
+        "text": "Shown while currently downloading episodes."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "notification_channel_playing_description",
+        "length": 90,
+        "text": "Allows to control playback. This is the main notification you see while playing a podcast."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "notification_channel_download_error_description",
+        "length": 41,
+        "text": "Shown when download or feed update fails."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "notification_channel_sync_error_description",
+        "length": 41,
+        "text": "Shown when gpodder synchronization fails."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "notification_channel_new_episode_description",
+        "length": 80,
+        "text": "Shown when a new episode of a podcast was found, where notifications are enabled"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "on_demand_config_stream_text",
+        "length": 78,
+        "text": "Looks like you stream a lot. Do you want episode lists to show stream buttons?"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "on_demand_config_download_text",
+        "length": 82,
+        "text": "Looks like you download a lot. Do you want episode lists to show download buttons?"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "pref_parental_control_require_subscribe_sum",
+        "length": 70,
+        "text": "Ask for the parental control password when subscribing to new podcasts"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "echo_home_subtitle",
+        "length": 74,
+        "text": "Your top podcasts and stats from the past year. Exclusively on your phone."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "echo_hours_podcasts[other]",
+        "length": 41,
+        "text": "hours of episodes\\nfrom %1$d different podcasts"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "echo_queue_title_clean",
+        "length": 61,
+        "text": "And you\\'re ready to make a clean start of the year. You have"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "echo_queue_title_many",
+        "length": 56,
+        "text": "And you still have quite a bit to go this year. You have"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "echo_queue_hours_waiting[other]",
+        "length": 41,
+        "text": "hours waiting in your queue\\nfrom %1$d episodes"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "echo_queue_hours_normal",
+        "length": 93,
+        "text": "That\\'s about %1$s each day until %2$d starts. You can start the year clean if you skip a few episodes."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "echo_queue_hours_much",
+        "length": 48,
+        "text": "That\\'s about %1$s each day until %2$d starts. Wait, what?"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "echo_listened_after_title",
+        "length": 100,
+        "text": "We\\'ve run some analysis on when episodes are released, and when you completed them. Our conclusion?"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "echo_listened_after_time",
+        "length": 58,
+        "text": "Typically, you completed an episode %1$s after it was released."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "echo_hoarder_title",
+        "length": 85,
+        "text": "We\\'ve also been wondering: do you listen to the podcasts that you\\'re subscribed to?"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "echo_hoarder_subtitle_hoarder",
+        "length": 50,
+        "text": "Looking at the numbers, we think you\\'re a hoarder"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "echo_hoarder_comment_hoarder",
+        "length": 125,
+        "text": "Numbers don\\'t lie, they say. And with only %1$d%% of your %2$d active subscriptions having been played this year, we\\'re probably right."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "echo_hoarder_comment_medium",
+        "length": 103,
+        "text": "You\\'ve played episodes from %1$d%% of your %2$d active subscriptions this year. How about checking out \\\"%3$s\\\" again?"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "echo_hoarder_comment_clean",
+        "length": 106,
+        "text": "You\\'ve played episodes from %1$d%% of your %2$d active subscriptions this year. We bet you keep your desk clean, too!"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "echo_thanks_we_are_glad_old",
+        "length": 115,
+        "text": "for sticking with us this year!\\n\\nYou played your first episode with us in %1$s. It\\'s been our honor to serve you since."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "echo_thanks_we_are_glad_new",
+        "length": 138,
+        "text": "for joining us this year!\\n\\nWhether you\\'ve moved over from another app, or started your podcast adventure with us: we\\'re glad to have you!"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "echo_thanks_now_favorite",
+        "length": 50,
+        "text": "Now, let\\'s take a look at your favorite podcasts…"
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "wearos_phone_not_supported",
+        "length": 117,
+        "text": "Phone not compatible. Make sure you are running the most recent version of AntennaPod from Google Play on your phone."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "wearos_phone_not_reachable",
+        "length": 86,
+        "text": "Could not reach the phone. Make sure your phone is nearby and AntennaPod is installed."
+      },
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "kitchen_brand_attribution",
+        "length": 96,
+        "text": "我的播客基于 AntennaPod develop 定制，保留原作者版权。原项目与本定制版均使用 GPL-3.0。可导入不同主题、不同集数的播客系列；音频、封面与文字稿由用户提供，保存在本机。"
+      },
+      {
+        "file": "ui/preferences/src/main/res/values/arrays.xml",
+        "key": "globalNewEpisodesActionItems[0]",
+        "length": 45,
+        "text": "@string/feed_new_episodes_action_add_to_inbox"
+      },
+      {
+        "file": "ui/preferences/src/main/res/values/arrays.xml",
+        "key": "globalNewEpisodesActionItems[1]",
+        "length": 45,
+        "text": "@string/feed_new_episodes_action_add_to_queue"
+      },
+      {
+        "file": "ui/preferences/src/main/res/values/arrays.xml",
+        "key": "feedNewEpisodesActionItems[1]",
+        "length": 45,
+        "text": "@string/feed_new_episodes_action_add_to_inbox"
+      },
+      {
+        "file": "ui/preferences/src/main/res/values/arrays.xml",
+        "key": "feedNewEpisodesActionItems[2]",
+        "length": 45,
+        "text": "@string/feed_new_episodes_action_add_to_queue"
+      },
+      {
+        "file": "ui/preferences/src/main/res/values/arrays.xml",
+        "key": "mobile_update_entries[1]",
+        "length": 42,
+        "text": "@string/pref_mobileUpdate_episode_download"
+      },
+      {
+        "file": "ui/preferences/src/main/res/values/arrays.xml",
+        "key": "episode_cleanup_entries[0]",
+        "length": 47,
+        "text": "@string/episode_cleanup_except_favorite_removal"
+      },
+      {
+        "file": "ui/preferences/src/main/res/values/arrays.xml",
+        "key": "nav_drawer_feed_order_options[0]",
+        "length": 43,
+        "text": "@string/drawer_feed_order_unplayed_episodes"
+      },
+      {
+        "file": "ui/preferences/src/main/res/values/arrays.xml",
+        "key": "nav_drawer_feed_counter_options[3]",
+        "length": 47,
+        "text": "@string/drawer_feed_counter_downloaded_unplayed"
+      }
+    ]
+  },
+  "custom_xml": {
+    "entries": 62,
+    "han_characters": 511,
+    "characters_without_placeholders": 643,
+    "entries_over_40_characters": 1,
+    "entries_over_40_raw_characters": 2,
+    "entries_with_at_least_2_han": 59,
+    "long_entries": [
+      {
+        "file": "ui/i18n/src/main/res/values/strings.xml",
+        "key": "kitchen_brand_attribution",
+        "length": 96,
+        "text": "我的播客基于 AntennaPod develop 定制，保留原作者版权。原项目与本定制版均使用 GPL-3.0。可导入不同主题、不同集数的播客系列；音频、封面与文字稿由用户提供，保存在本机。"
+      }
+    ]
+  },
+  "custom_zip_scalar": {
+    "entries": 42,
+    "han_characters": 314,
+    "characters_without_placeholders": 383,
+    "entries_over_40_characters": 0,
+    "entries_over_40_raw_characters": 1,
+    "entries_with_at_least_2_han": 39,
+    "long_entries": []
+  },
+  "custom_referenced_by_java_ui": {
+    "entries": 38,
+    "han_characters": 277,
+    "characters_without_placeholders": 342,
+    "entries_over_40_characters": 0,
+    "entries_over_40_raw_characters": 1,
+    "entries_with_at_least_2_han": 35,
+    "long_entries": []
+  },
+  "default_xml_by_file": {
+    "app/src/main/res/values/design_time_attributes.xml": 2,
+    "app/src/main/res/values/svg.xml": 2,
+    "app-wearos/src/main/res/values/wear.xml": 1,
+    "net/sync/wear-interface/src/main/res/values/wear.xml": 1,
+    "storage/preferences/src/main/res/values/arrays.xml": 11,
+    "ui/i18n/src/main/res/values/strings.xml": 952,
+    "ui/preferences/src/main/res/values/arrays.xml": 168,
+    "ui/preferences/src/main/res/values/keycodes.xml": 4
+  },
+  "custom_xml_by_kind": {
+    "string": 46,
+    "string-array": 16
+  },
+  "java_ui": [
+    {
+      "file": "app/src/main/java/de/danoeh/antennapod/zipimport/SeriesLibraryFragment.java",
+      "resource_references": [
+        "cancel",
+        "ok",
+        "zip_all_categories",
+        "zip_back",
+        "zip_cancel",
+        "zip_cancelled",
+        "zip_committing",
+        "zip_copying",
+        "zip_delete_failed",
+        "zip_delete_prompt",
+        "zip_delete_source",
+        "zip_deleted",
+        "zip_done",
+        "zip_duration",
+        "zip_empty",
+        "zip_episode_summary",
+        "zip_extracting",
+        "zip_failed",
+        "zip_import",
+        "zip_library",
+        "zip_load_failed",
+        "zip_no_report",
+        "zip_no_results",
+        "zip_original_home",
+        "zip_play_order",
+        "zip_queue_note",
+        "zip_report",
+        "zip_report_clean",
+        "zip_report_summary",
+        "zip_retry",
+        "zip_search",
+        "zip_series_summary",
+        "zip_transcript",
+        "zip_validating"
+      ],
+      "dialog_sites": [
+        {
+          "line": 457,
+          "constructor": "new MaterialAlertDialogBuilder("
+        },
+        {
+          "line": 525,
+          "constructor": "new MaterialAlertDialogBuilder("
+        },
+        {
+          "line": 537,
+          "constructor": "new MaterialAlertDialogBuilder("
+        }
+      ],
+      "hardcoded_han_literals": []
+    },
+    {
+      "file": "app/src/main/java/de/danoeh/antennapod/zipimport/SeriesTranscriptFragment.java",
+      "resource_references": [
+        "zip_load_failed",
+        "zip_loading",
+        "zip_match_count",
+        "zip_next_match",
+        "zip_none_transcript",
+        "zip_previous_match",
+        "zip_transcript_search"
+      ],
+      "dialog_sites": [],
+      "hardcoded_han_literals": []
+    }
+  ],
+  "custom_dialog_constructor_sites": 3,
+  "gradle_display_names_separate": [
+    "我的播客",
+    "我的播客"
+  ],
+  "custom_resource_inventory": [
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_library",
+      "resource_name": "zip_library",
+      "kind": "string",
+      "translatable": "true",
+      "text": "我的播客"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_import",
+      "resource_name": "zip_import",
+      "kind": "string",
+      "translatable": "true",
+      "text": "导入压缩包"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_original_home",
+      "resource_name": "zip_original_home",
+      "kind": "string",
+      "translatable": "true",
+      "text": "RSS 与原版首页"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_empty",
+      "resource_name": "zip_empty",
+      "kind": "string",
+      "translatable": "true",
+      "text": "把音频、封面与文字稿装进一个 ZIP，选一次，就成为完整节目。"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_back",
+      "resource_name": "zip_back",
+      "kind": "string",
+      "translatable": "true",
+      "text": "全部节目"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_all_categories",
+      "resource_name": "zip_all_categories",
+      "kind": "string",
+      "translatable": "true",
+      "text": "全部分类"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_search",
+      "resource_name": "zip_search",
+      "kind": "string",
+      "translatable": "true",
+      "text": "搜索剧集标题"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_transcript_search",
+      "resource_name": "zip_transcript_search",
+      "kind": "string",
+      "translatable": "true",
+      "text": "搜索文字稿"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_play",
+      "resource_name": "zip_play",
+      "kind": "string",
+      "translatable": "true",
+      "text": "播放"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_transcript",
+      "resource_name": "zip_transcript",
+      "kind": "string",
+      "translatable": "true",
+      "text": "文字稿"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_details",
+      "resource_name": "zip_details",
+      "kind": "string",
+      "translatable": "true",
+      "text": "原版剧集详情"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_report",
+      "resource_name": "zip_report",
+      "kind": "string",
+      "translatable": "true",
+      "text": "导入结果"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_retry",
+      "resource_name": "zip_retry",
+      "kind": "string",
+      "translatable": "true",
+      "text": "重试上次导入"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_cancel",
+      "resource_name": "zip_cancel",
+      "kind": "string",
+      "translatable": "true",
+      "text": "取消导入"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_copying",
+      "resource_name": "zip_copying",
+      "kind": "string",
+      "translatable": "true",
+      "text": "正在读取压缩包…"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_extracting",
+      "resource_name": "zip_extracting",
+      "kind": "string",
+      "translatable": "true",
+      "text": "正在解压第 %1$d / %2$d 集"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_validating",
+      "resource_name": "zip_validating",
+      "kind": "string",
+      "translatable": "true",
+      "text": "正在校验第 %1$d / %2$d 集，已就绪 %3$d 集"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_committing",
+      "resource_name": "zip_committing",
+      "kind": "string",
+      "translatable": "true",
+      "text": "正在保存节目…"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_done",
+      "resource_name": "zip_done",
+      "kind": "string",
+      "translatable": "true",
+      "text": "已导入 %1$d 集"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_cancelled",
+      "resource_name": "zip_cancelled",
+      "kind": "string",
+      "translatable": "true",
+      "text": "已取消，可重试；原有节目与进度已保留。"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_failed",
+      "resource_name": "zip_failed",
+      "kind": "string",
+      "translatable": "true",
+      "text": "导入失败：%1$s"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_no_valid_audio",
+      "resource_name": "zip_no_valid_audio",
+      "kind": "string",
+      "translatable": "true",
+      "text": "没有可导入的有效音频，原有节目已保留。"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_series_summary",
+      "resource_name": "zip_series_summary",
+      "kind": "string",
+      "translatable": "true",
+      "text": "%1$d 集 · %2$d 个分类 · %3$s"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_episode_summary",
+      "resource_name": "zip_episode_summary",
+      "kind": "string",
+      "translatable": "true",
+      "text": "%1$s · %2$s · %3$d%%"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_duration",
+      "resource_name": "zip_duration",
+      "kind": "string",
+      "translatable": "true",
+      "text": "%1$d:%2$02d"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_none_transcript",
+      "resource_name": "zip_none_transcript",
+      "kind": "string",
+      "translatable": "true",
+      "text": "这集没有可用的文字稿。"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_match_count",
+      "resource_name": "zip_match_count",
+      "kind": "string",
+      "translatable": "true",
+      "text": "%1$d / %2$d 处"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_next_match",
+      "resource_name": "zip_next_match",
+      "kind": "string",
+      "translatable": "true",
+      "text": "下一处"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_previous_match",
+      "resource_name": "zip_previous_match",
+      "kind": "string",
+      "translatable": "true",
+      "text": "上一处"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_report_summary",
+      "resource_name": "zip_report_summary",
+      "kind": "string",
+      "translatable": "true",
+      "text": "导入 %1$d 集，保留原有 %2$d 集，%3$d 个分类\n总时长 %4$s · 耗时 %5$.2f 秒\n\n%6$s"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_report_clean",
+      "resource_name": "zip_report_clean",
+      "kind": "string",
+      "translatable": "true",
+      "text": "全部文件校验通过。"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_no_report",
+      "resource_name": "zip_no_report",
+      "kind": "string",
+      "translatable": "true",
+      "text": "尚无导入记录。"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_delete_source",
+      "resource_name": "zip_delete_source",
+      "kind": "string",
+      "translatable": "true",
+      "text": "删除原压缩包"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_delete_prompt",
+      "resource_name": "zip_delete_prompt",
+      "kind": "string",
+      "translatable": "true",
+      "text": "已导入的节目位于应用私有存储。删除系统文件选择器选中的原 ZIP？"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_deleted",
+      "resource_name": "zip_deleted",
+      "kind": "string",
+      "translatable": "true",
+      "text": "原压缩包已删除。"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_delete_failed",
+      "resource_name": "zip_delete_failed",
+      "kind": "string",
+      "translatable": "true",
+      "text": "文件来源不允许删除，请在文件管理器中删除。"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_loading",
+      "resource_name": "zip_loading",
+      "kind": "string",
+      "translatable": "true",
+      "text": "正在读取节目…"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_no_results",
+      "resource_name": "zip_no_results",
+      "kind": "string",
+      "translatable": "true",
+      "text": "没有匹配的剧集。"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_missing_media",
+      "resource_name": "zip_missing_media",
+      "kind": "string",
+      "translatable": "true",
+      "text": "本地音频不可用，请重新导入。"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_play_order",
+      "resource_name": "zip_play_order",
+      "kind": "string",
+      "translatable": "true",
+      "text": "按学习顺序播放"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_queue_note",
+      "resource_name": "zip_queue_note",
+      "kind": "string",
+      "translatable": "true",
+      "text": "从这一集起，按节目顺序连续播放。"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_load_failed",
+      "resource_name": "zip_load_failed",
+      "kind": "string",
+      "translatable": "true",
+      "text": "节目读取失败：%1$s"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_issue_labels[0]",
+      "resource_name": "zip_issue_labels",
+      "kind": "string-array",
+      "translatable": "true",
+      "text": "不安全的压缩路径"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_issue_labels[1]",
+      "resource_name": "zip_issue_labels",
+      "kind": "string-array",
+      "translatable": "true",
+      "text": "重复文件路径"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_issue_labels[2]",
+      "resource_name": "zip_issue_labels",
+      "kind": "string-array",
+      "translatable": "true",
+      "text": "文件超过大小限制"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_issue_labels[3]",
+      "resource_name": "zip_issue_labels",
+      "kind": "string-array",
+      "translatable": "true",
+      "text": "文件解压或校验失败"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_issue_labels[4]",
+      "resource_name": "zip_issue_labels",
+      "kind": "string-array",
+      "translatable": "true",
+      "text": "空分类文件夹"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_issue_labels[5]",
+      "resource_name": "zip_issue_labels",
+      "kind": "string-array",
+      "translatable": "true",
+      "text": "缺少或为空的音频"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_issue_labels[6]",
+      "resource_name": "zip_issue_labels",
+      "kind": "string-array",
+      "translatable": "true",
+      "text": "集号与标题格式无法识别"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_issue_labels[7]",
+      "resource_name": "zip_issue_labels",
+      "kind": "string-array",
+      "translatable": "true",
+      "text": "分类内集号重复"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_issue_labels[8]",
+      "resource_name": "zip_issue_labels",
+      "kind": "string-array",
+      "translatable": "true",
+      "text": "缺少封面"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_issue_labels[9]",
+      "resource_name": "zip_issue_labels",
+      "kind": "string-array",
+      "translatable": "true",
+      "text": "封面损坏"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_issue_labels[10]",
+      "resource_name": "zip_issue_labels",
+      "kind": "string-array",
+      "translatable": "true",
+      "text": "缺少文字稿"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_issue_labels[11]",
+      "resource_name": "zip_issue_labels",
+      "kind": "string-array",
+      "translatable": "true",
+      "text": "文字稿为空、过大或非 UTF-8"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_issue_labels[12]",
+      "resource_name": "zip_issue_labels",
+      "kind": "string-array",
+      "translatable": "true",
+      "text": "音频损坏或无法读取时长"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_issue_labels[13]",
+      "resource_name": "zip_issue_labels",
+      "kind": "string-array",
+      "translatable": "true",
+      "text": "实际时长与播放清单不符"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_issue_labels[14]",
+      "resource_name": "zip_issue_labels",
+      "kind": "string-array",
+      "translatable": "true",
+      "text": "manifest 校验未通过"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "zip_issue_labels[15]",
+      "resource_name": "zip_issue_labels",
+      "kind": "string-array",
+      "translatable": "true",
+      "text": "文件未按分类层级存放"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "kitchen_brand_version",
+      "resource_name": "kitchen_brand_version",
+      "kind": "string",
+      "translatable": "true",
+      "text": "我的播客版本"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "kitchen_brand_attribution_title",
+      "resource_name": "kitchen_brand_attribution_title",
+      "kind": "string",
+      "translatable": "true",
+      "text": "基于 AntennaPod"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "kitchen_brand_attribution",
+      "resource_name": "kitchen_brand_attribution",
+      "kind": "string",
+      "translatable": "true",
+      "text": "我的播客基于 AntennaPod develop 定制，保留原作者版权。原项目与本定制版均使用 GPL-3.0。可导入不同主题、不同集数的播客系列；音频、封面与文字稿由用户提供，保存在本机。"
+    },
+    {
+      "file": "ui/i18n/src/main/res/values/strings.xml",
+      "key": "kitchen_brand_source",
+      "resource_name": "kitchen_brand_source",
+      "kind": "string",
+      "translatable": "true",
+      "text": "定制版完整源码"
+    }
+  ],
+  "script_sha256": "816b15154292751167fce089f15a06844d6bef70fd945f75f3fc85a096943749"
+}

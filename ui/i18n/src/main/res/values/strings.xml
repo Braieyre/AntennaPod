@@ -2,6 +2,57 @@
 <resources
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingTranslation">
+    <string name="paper_import_busy">已有压缩包正在导入</string>
+    <string name="paper_programmes">节目</string>
+    <string name="paper_programme">节目</string>
+    <string name="paper_queue">待播</string>
+    <string name="paper_settings">设置</string>
+    <string name="paper_play">播放</string>
+    <string name="paper_episode">剧集详情</string>
+    <string name="paper_import">导入播客</string>
+    <string name="paper_import_short">导入</string>
+    <string name="paper_empty">把喜欢的声音带进来。
+选择一个 ZIP，导入完整节目。</string>
+    <string name="paper_import_history">导入记录</string>
+    <string name="paper_no_imports">还没有导入记录。</string>
+    <string name="paper_previous_import">之前的导入</string>
+    <string name="paper_continue">继续收听</string>
+    <string name="paper_expand">展开简介</string>
+    <string name="paper_collapse">收起简介</string>
+    <string name="paper_search_title">搜索标题</string>
+    <string name="paper_all">全部</string>
+    <string name="paper_cancel">取消</string>
+    <string name="paper_done">完成</string>
+    <string name="paper_search">搜索</string>
+    <string name="paper_view">查看</string>
+    <string name="paper_import_progress">正在导入 · %1$d / %2$d 集</string>
+    <string name="paper_import_reading">正在读取压缩包…</string>
+    <string name="paper_import_failed">未能导入，请在导入记录中查看原因。</string>
+    <string name="paper_import_cancelled">已取消，已有节目和进度保留。</string>
+    <string name="paper_episode_count">%1$d 集</string>
+    <string name="paper_add_queue">加入待播</string>
+    <string name="paper_queued">已加入待播</string>
+    <string name="paper_read_transcript">阅读全文文字稿</string>
+    <string name="paper_source_exists">原压缩包仍在文件夹中。</string>
+    <string name="paper_source_deleted">原文件已删除</string>
+    <string name="paper_source_missing">原文件已不存在</string>
+    <string name="paper_source_none">没有可管理的原文件。</string>
+    <string name="paper_source_error">未能删除，原文件仍保留。</string>
+    <string name="paper_source_unavailable">无法访问原文件。请检查文件来源是否仍可用。</string>
+    <string name="paper_delete_title">删除原压缩包？</string>
+    <string name="paper_delete_message">已导入的节目会保留。原 ZIP 删除后无法撤销。</string>
+    <string name="paper_delete">删除原文件</string>
+    <string name="paper_listening">收听</string>
+    <string name="paper_local_content">本机内容</string>
+    <string name="paper_application">应用</string>
+    <string name="paper_playback_settings">播放与睡眠</string>
+    <string name="paper_appearance">外观与文字</string>
+    <string name="paper_rss">RSS 订阅</string>
+    <string name="paper_rss_more">RSS 搜索与下载</string>
+    <string name="paper_about">关于与开源许可</string>
+    <string name="paper_advanced">更多设置</string>
+    <string name="paper_import_published">保存在本机</string>
+
     <string name="zip_library">我的播客</string>
     <string name="zip_import">导入压缩包</string>
     <string name="zip_original_home">RSS 与原版首页</string>
@@ -82,13 +133,13 @@
     <string name="episodes_label_short">Episodes</string>
     <string name="home_label">Home</string>
     <string name="home_label_short">Home</string>
-    <string name="queue_label">Queue</string>
-    <string name="queue_label_short">Queue</string>
+    <string name="queue_label">待播</string>
+    <string name="queue_label_short">待播</string>
     <string name="inbox_label">Inbox</string>
     <string name="inbox_label_short">Inbox</string>
     <string name="favorite_episodes_label">Favorites</string>
     <string name="favorite_episodes_label_short">Favorites</string>
-    <string name="settings_label">Settings</string>
+    <string name="settings_label">设置</string>
     <string name="downloads_label">Downloads</string>
     <string name="downloads_label_short">Downloads</string>
     <string name="downloads_log_label">Download log</string>
@@ -198,11 +249,11 @@
     <string name="error_label">Error</string>
     <string name="error_msg_prefix">An error occurred:</string>
     <string name="refresh_label">Refresh</string>
-    <string name="chapters_label">Chapters</string>
+    <string name="chapters_label">章节</string>
     <string name="no_chapters_label">No chapters</string>
     <string name="chapter_duration">Duration: %1$s</string>
     <string name="description_label">Description</string>
-    <string name="shownotes_label">Shownotes</string>
+    <string name="shownotes_label">节目文稿</string>
     <string name="shownotes_contentdescription">swipe up to read shownotes</string>
     <string name="close_label">Close</string>
     <string name="retry_label">Retry</string>
@@ -313,8 +364,8 @@
         <item quantity="one">Downloading %d episode.</item>
         <item quantity="other">Downloading %d episodes.</item>
     </plurals>
-    <string name="play_label">Play</string>
-    <string name="pause_label">Pause</string>
+    <string name="play_label">播放</string>
+    <string name="pause_label">暂停</string>
     <string name="stream_label">Stream</string>
     <string name="delete_label">Delete</string>
     <plurals name="deleted_episode_message">
@@ -369,7 +420,7 @@
     <string name="visit_social_interact_label">Show comments</string>
     <string name="visit_social_interact_confirm_dialog_title">You are leaving AntennaPod</string>
     <string name="visit_social_interact_confirm_dialog_message">Please make sure that you trust the website \"%1$s\".</string>
-    <string name="skip_episode_label">Skip episode</string>
+    <string name="skip_episode_label">下一集</string>
     <string name="reset_playback_position_label">Reset playback position</string>
     <plurals name="reset_position_message">
         <item quantity="one">%d episode position reset.</item>
@@ -557,7 +608,7 @@
     <string name="pref_skip_keeps_episodes_title">Keep skipped episodes</string>
     <string name="pref_favorite_keeps_episodes_sum">Keep episodes when they are marked favorite</string>
     <string name="pref_favorite_keeps_episodes_title">Keep favorite episodes</string>
-    <string name="playback_pref">Playback</string>
+    <string name="playback_pref">播放</string>
     <string name="playback_pref_sum">Headphone controls, Skip intervals, Queue</string>
     <string name="downloads_pref">Downloads</string>
     <string name="downloads_pref_sum">Update interval, Mobile data, Automatic download, Automatic deletion</string>
@@ -712,7 +763,7 @@
     <!-- Search -->
     <string name="search_status_no_results">No results were found</string>
     <string name="type_to_search">Type a query to search</string>
-    <string name="search_label">Search</string>
+    <string name="search_label">搜索</string>
     <string name="no_results_for_query">No results were found for \"%1$s\"</string>
     <string name="search_online">Search online</string>
 
@@ -771,7 +822,7 @@
     <string name="sleep_timer_without_continuous_playback_change_hours">Change hours</string>
     <string name="sleep_timer_without_continuous_playback_message">Instead of always automatically enabling the sleep timer with one episode, please instead disable \"continuous playback\" in the settings.</string>
     <string name="sleep_timer_always">Always</string>
-    <string name="sleep_timer_label">Sleep timer</string>
+    <string name="sleep_timer_label">睡眠定时</string>
     <string name="time_dialog_invalid_input">Invalid input, time has to be an integer</string>
     <plurals name="timer_exceeds_remaining_time_while_continuous_playback_disabled">
         <item quantity="one">Continuous playback is disabled and the current episode has only %1$d minute left</item>
@@ -872,8 +923,8 @@
 
     <!-- Content descriptions for image buttons -->
     <string name="toolbar_back_button_content_description">Back</string>
-    <string name="rewind_label">Rewind</string>
-    <string name="fast_forward_label">Fast-forward</string>
+    <string name="rewind_label">快退</string>
+    <string name="fast_forward_label">快进</string>
     <string name="increase_speed">Increase speed</string>
     <string name="decrease_speed">Decrease speed</string>
     <string name="media_type_video_label">Video</string>
@@ -1006,7 +1057,7 @@
 
     <!-- Audio controls -->
     <string name="audio_controls">Audio controls</string>
-    <string name="playback_speed">Playback speed</string>
+    <string name="playback_speed">倍速</string>
     <string name="player_switch_to_audio_only">Switch to audio only</string>
 
     <!-- proxy settings -->

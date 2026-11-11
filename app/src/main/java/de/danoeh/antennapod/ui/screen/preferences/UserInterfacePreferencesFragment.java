@@ -32,7 +32,11 @@ public class UserInterfacePreferencesFragment extends AnimatedPreferenceFragment
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.preferences_user_interface);
         setupInterfaceScreen();
-        backOpensDrawerToggle(UserPreferences.isBottomNavigationEnabled());
+        backOpensDrawerToggle(true);
+        findPreference(UserPreferences.PREF_THEME_BLACK).setVisible(false);
+        findPreference(UserPreferences.PREF_TINTED_COLORS).setVisible(false);
+        findPreference(UserPreferences.PREF_BOTTOM_NAVIGATION).setVisible(false);
+        findPreference(UserPreferences.PREF_HIDDEN_DRAWER_ITEMS).setVisible(false);
     }
 
     @Override

@@ -39,6 +39,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.snackbar.Snackbar;
 import de.danoeh.antennapod.R;
 import de.danoeh.antennapod.zipimport.SeriesLibraryFragment;
+import de.danoeh.antennapod.zipimport.PaperSettingsFragment;
 import de.danoeh.antennapod.event.EpisodeDownloadEvent;
 import de.danoeh.antennapod.event.FeedUpdateRunningEvent;
 import de.danoeh.antennapod.event.MessageEvent;
@@ -135,26 +136,20 @@ public class MainActivity extends CastEnabledActivity implements NavigationToolb
             public void onItemSelected(@IdRes int itemId) {
                 sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 if (itemId == R.id.bottom_navigation_settings) {
-                    startActivity(new Intent(MainActivity.this, PreferenceActivity.class));
+                    loadFragment(PaperSettingsFragment.TAG, null);
                     return;
                 }
                 loadFragment(NavigationNames.getBottomNavigationFragmentTag(itemId), null);
             }
         };
-        if (UserPreferences.isBottomNavigationEnabled()) {
-            bottomNavigation.buildMenu();
-            if (drawerLayout == null) { // Tablet mode
-                navDrawer.setVisibility(View.GONE);
-            } else {
-                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-            }
-            drawerLayout = null;
-            bottomNavigation.onCreateView();
+        bottomNavigation.buildMenu();
+        if (drawerLayout == null) { // Tablet mode
+            navDrawer.setVisibility(View.GONE);
         } else {
-            bottomNavigation.hide();
-            bottomNavigation = null;
-            setNavDrawerSize();
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         }
+        drawerLayout = null;
+        bottomNavigation.onCreateView();
         openDefaultPageBackPressedCallback = new OpenDefaultPageBackPressedCallback();
         if (drawerLayout != null) {
             drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
@@ -421,6 +416,9 @@ public class MainActivity extends CastEnabledActivity implements NavigationToolb
         Log.d(TAG, "loadFragment(tag: " + tag + ", args: " + args + ")");
         Fragment fragment;
         switch (tag) {
+            case PaperSettingsFragment.TAG:
+                fragment = new PaperSettingsFragment();
+                break;
             case HomeFragment.TAG:
                 fragment = new SeriesLibraryFragment();
                 break;
@@ -587,9 +585,7 @@ public class MainActivity extends CastEnabledActivity implements NavigationToolb
         super.onResume();
         handleNavIntent();
 
-        boolean hasBottomNavigation = bottomNavigation != null;
-        if (lastTheme != ThemeSwitcher.getNoTitleTheme(this)
-                || hasBottomNavigation != UserPreferences.isBottomNavigationEnabled()) {
+        if (lastTheme != ThemeSwitcher.getNoTitleTheme(this)) {
             restartActivity();
         }
         if (UserPreferences.getHiddenDrawerItems().contains(NavDrawerFragment.getLastNavFragment(this))) {

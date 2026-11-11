@@ -29,9 +29,9 @@ public class PlayButton extends AppCompatImageButton {
     }
 
     public void setIsShowPlay(boolean showPlay) {
+        setContentDescription(getContext().getString(showPlay ? R.string.play_label : R.string.pause_label));
         if (this.isShowPlay != showPlay) {
             this.isShowPlay = showPlay;
-            setContentDescription(getContext().getString(showPlay ? R.string.play_label : R.string.pause_label));
             if (isVideoScreen) {
                 setImageResource(showPlay ? R.drawable.ic_play_video_white : R.drawable.ic_pause_video_white);
             } else if (!isShown()) {

@@ -23,6 +23,7 @@ import com.skydoves.balloon.Balloon;
 import com.skydoves.balloon.BalloonAnimation;
 import de.danoeh.antennapod.BuildConfig;
 import de.danoeh.antennapod.R;
+import de.danoeh.antennapod.zipimport.SeriesStore;
 import de.danoeh.antennapod.actionbutton.CancelDownloadActionButton;
 import de.danoeh.antennapod.actionbutton.DeleteActionButton;
 import de.danoeh.antennapod.actionbutton.DownloadActionButton;
@@ -266,6 +267,7 @@ public class ItemFragment extends Fragment {
         if (item.getPubDate() != null) {
             String pubDateStr = DateFormatter.formatAbbrev(getActivity(), item.getPubDate());
             viewBinding.txtvPublished.setText(pubDateStr);
+            viewBinding.txtvPublished.setVisibility(SeriesStore.isImported(item.getFeed()) ? View.GONE : View.VISIBLE);
             viewBinding.txtvPublished.setContentDescription(DateFormatter.formatForAccessibility(item.getPubDate()));
         }
         if (item.getFeed().getState() == Feed.STATE_NOT_SUBSCRIBED) {

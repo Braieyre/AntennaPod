@@ -28,7 +28,7 @@ public class PodcastApp extends Application {
             Log.d(TAG, e.getMessage());
         }
 
-        DynamicColors.applyToActivitiesIfAvailable(this);
+
         ClientConfigurator.initialize(this);
         PreferenceUpgrader.checkUpgrades(this);
     }

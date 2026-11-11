@@ -29,6 +29,10 @@ public final class SeriesStore {
 
     private SeriesStore() { }
 
+    public static boolean isImported(Feed feed) {
+        return feed != null && feed.getDownloadUrl() != null && feed.getDownloadUrl().startsWith(PREFIX);
+    }
+
     public static File directory(Context context) {
         return new File(context.getFilesDir(), "zip-library");
     }

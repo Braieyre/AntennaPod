@@ -13,6 +13,7 @@ import com.bytehamster.lib.preferencesearch.SearchPreferenceResultListener;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import de.danoeh.antennapod.R;
+import de.danoeh.antennapod.ui.preferences.screen.about.AboutFragment;
 import de.danoeh.antennapod.event.MessageEvent;
 import de.danoeh.antennapod.ui.common.Keyboard;
 import de.danoeh.antennapod.ui.common.ToolbarActivity;
@@ -32,6 +33,8 @@ import org.greenrobot.eventbus.ThreadMode;
 public class PreferenceActivity extends ToolbarActivity implements SearchPreferenceResultListener {
     private static final String FRAGMENT_TAG = "tag_preferences";
     public static final String OPEN_AUTO_DOWNLOAD_SETTINGS = "OpenAutoDownloadSettings";
+    public static final String OPEN_SCREEN = "PaperOpenScreen";
+    public static final String OPEN_ABOUT = "PaperOpenAbout";
     public static final String OPEN_PLAYBACK_SETTINGS = "OpenPlaybackSettings";
     private SettingsActivityBinding binding;
 
@@ -53,6 +56,13 @@ public class PreferenceActivity extends ToolbarActivity implements SearchPrefere
                     .commit();
         }
         Intent intent = getIntent();
+        if (intent.getIntExtra(OPEN_SCREEN, 0) != 0) {
+            openScreen(intent.getIntExtra(OPEN_SCREEN, 0));
+        }
+        if (intent.getBooleanExtra(OPEN_ABOUT, false)) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(binding.settingsContainer.getId(), new AboutFragment(), FRAGMENT_TAG).commit();
+        }
         if (intent.getBooleanExtra(OPEN_AUTO_DOWNLOAD_SETTINGS, false)) {
             openScreen(R.xml.preferences_autodownload);
         }

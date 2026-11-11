@@ -1,0 +1,122 @@
+[
+  {
+    "file": "screenshots/current-startup.png",
+    "screen": "启动后的自动历史结果弹窗",
+    "kind": "current adb capture",
+    "version": "1.0.1-preview (3130002)",
+    "android": "API 35 / 1080×2424",
+    "host_saved_at_Asia_Shanghai": "2026-11-10T21:48:09.585953+08:00",
+    "notes": "未点击删除；当前记录只有 OK",
+    "sha256": "0c3d24c13e550a600f98a0df1921d3653cfd37d3f73967586d7cb176680a371b"
+  },
+  {
+    "file": "screenshots/current-home.png",
+    "screen": "节目首页 + 迷你播放器",
+    "kind": "current adb capture",
+    "version": "1.0.1-preview (3130002)",
+    "android": "API 35 / 1080×2424",
+    "host_saved_at_Asia_Shanghai": "2026-11-10T21:53:03.597832+08:00",
+    "notes": "关闭结果弹窗后截图",
+    "sha256": "3aaa8cb3c6f7b84d4b376080195b3a818e4df61fee1cea2c30ae62cfde0170a4"
+  },
+  {
+    "file": "screenshots/current-programme.png",
+    "screen": "节目简介、分类、剧集列表",
+    "kind": "current adb capture",
+    "version": "1.0.1-preview (3130002)",
+    "android": "API 35 / 1080×2424",
+    "host_saved_at_Asia_Shanghai": "2026-11-10T21:53:23.676865+08:00",
+    "notes": "只打开现有节目，未重新导入",
+    "sha256": "8203498090293d9ed4a21f78bd89c116da8ae009a2ea7137b608338db8888043"
+  },
+  {
+    "file": "screenshots/current-episode-modal.png",
+    "screen": "当前剧集三按钮选择弹窗",
+    "kind": "current adb capture",
+    "version": "1.0.1-preview (3130002)",
+    "android": "API 35 / 1080×2424",
+    "host_saved_at_Asia_Shanghai": "2026-11-10T21:53:53.688385+08:00",
+    "notes": "只打开/取消，未从该弹窗开始新播放",
+    "sha256": "65724905ca0ed5770e4a2b2e70f3a67d1e2290c19ceffd04d492ef5e73d47165"
+  },
+  {
+    "file": "screenshots/current-player.png",
+    "screen": "原生完整播放器",
+    "kind": "current adb capture",
+    "version": "1.0.1-preview (3130002)",
+    "android": "API 35 / 1080×2424",
+    "host_saved_at_Asia_Shanghai": "2026-11-10T21:53:56.242592+08:00",
+    "notes": "从既有迷你播放器展开，未改倍速/睡眠",
+    "sha256": "338bb9a2716d5b5888f9b563645f2af6dd2c4d10086b0fe56d762c7be604a9f1"
+  },
+  {
+    "file": "screenshots/current-queue.png",
+    "screen": "原生待播列表 + 迷你播放器",
+    "kind": "current adb capture",
+    "version": "1.0.1-preview (3130002)",
+    "android": "API 35 / 1080×2424",
+    "host_saved_at_Asia_Shanghai": "2026-11-10T21:54:07.587080+08:00",
+    "notes": "只切换导航，未移除/重排",
+    "sha256": "9cac6fb6f81d012732cb3b3fd716bfaa9c5bbb0d8ced0087f344895e62a219cd"
+  },
+  {
+    "file": "screenshots/current-settings.png",
+    "screen": "原生常用设置首页",
+    "kind": "current adb capture",
+    "version": "1.0.1-preview (3130002)",
+    "android": "API 35 / 1080×2424",
+    "host_saved_at_Asia_Shanghai": "2026-11-10T21:54:40.502700+08:00",
+    "notes": "只打开，未修改任何设置",
+    "sha256": "282a532188bcd2310c4c95a5f519af870e4e68d978c3410251e6e9fedfeec443"
+  },
+  {
+    "file": "screenshots/historical-library.png",
+    "screen": "节目首页历史截图",
+    "kind": "historical exact copy",
+    "version": "1.0.0-kitchen",
+    "source": "../verification/library-final.png",
+    "source_file_mtime_Asia_Shanghai": "2026-11-10T18:52:39.593571+08:00",
+    "notes": "文件为既有真实模拟器截图的逐字节复制，不重绘、不合成控件。",
+    "sha256": "8760346f963d27a096407501f560c52529e8a0a6d75ccebf60a1e5c89dacdf04"
+  },
+  {
+    "file": "screenshots/historical-empty.png",
+    "screen": "空库历史截图",
+    "kind": "historical exact copy",
+    "version": "1.0.0-kitchen",
+    "source": "../verification/library-empty.png",
+    "source_file_mtime_Asia_Shanghai": "2026-11-10T11:26:12.420888+08:00",
+    "notes": "文件为既有真实模拟器截图的逐字节复制，不重绘、不合成控件。",
+    "sha256": "d53d27572e75be41af1a471432f80a4db5a04379713093a1647a6269311367f0"
+  },
+  {
+    "file": "screenshots/historical-transcript.png",
+    "screen": "文字稿全文搜索历史截图",
+    "kind": "historical exact copy",
+    "version": "1.0.0-kitchen",
+    "source": "../verification/transcript-search.png",
+    "source_file_mtime_Asia_Shanghai": "2026-11-10T11:28:04.890564+08:00",
+    "notes": "文件为既有真实模拟器截图的逐字节复制，不重绘、不合成控件。",
+    "sha256": "e9760273a5300da720544b714f8998c2f9c27b0859389df344b5470a64860343"
+  },
+  {
+    "file": "screenshots/historical-import-report.png",
+    "screen": "导入结果历史截图",
+    "kind": "historical exact copy",
+    "version": "1.0.0-kitchen",
+    "source": "../verification/import-report.png",
+    "source_file_mtime_Asia_Shanghai": "2026-11-10T11:27:19.207082+08:00",
+    "notes": "文件为既有真实模拟器截图的逐字节复制，不重绘、不合成控件。",
+    "sha256": "a2894e0ab5e8f41d2ce5ac8bcb581eb42dd8c68891b0ac1a0618b1c3d8d6749c"
+  },
+  {
+    "file": "screenshots/historical-app-info.png",
+    "screen": "系统应用名称与图标历史截图",
+    "kind": "historical exact copy",
+    "version": "1.0.1-preview",
+    "source": "../verification/generic-app-info.png",
+    "source_file_mtime_Asia_Shanghai": "2026-11-10T20:11:03.033359+08:00",
+    "notes": "文件为既有真实模拟器截图的逐字节复制，不重绘、不合成控件。",
+    "sha256": "7e7909c6fd41255b1620e6b0f5ff206cd7268a5729f23465fc2de65663f9e996"
+  }
+]

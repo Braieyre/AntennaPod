@@ -35,31 +35,32 @@
     </style>
 
     <style name="Theme.AntennaPod.Light" parent="Theme.AntennaPod.Dynamic.Light">
+        <item name="paperSecondaryAccent">@color/paper_secondary_accent_light</item>
         <item name="isMaterial3DynamicColorApplied">false</item>
         <item name="colorPrimary">@color/accent_light</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/paper_on_primary_light</item>
         <item name="colorAccent">@color/accent_light</item>
         <item name="colorSecondary">@color/accent_light</item>
-        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorOnSecondary">@color/paper_on_primary_light</item>
         <item name="colorPrimaryDark">@color/accent_light</item>
-        <item name="colorPrimaryContainer">#D6E6F3</item>
-        <item name="colorOnPrimaryContainer">@color/black</item>
+        <item name="colorPrimaryContainer">@color/color_secondary_container_light</item>
+        <item name="colorOnPrimaryContainer">@color/paper_text_light</item>
         <item name="android:colorBackground">@color/background_light</item>
         <item name="colorSurface">@color/background_light</item>
-        <item name="colorOnSurface">@color/black</item>
-        <item name="colorOnContainer">@color/black</item>
+        <item name="colorOnSurface">@color/paper_text_light</item>
+        <item name="colorOnContainer">@color/paper_text_light</item>
         <item name="colorSurfaceVariant">@color/color_surface_variant_light</item>
         <item name="colorOnSurfaceVariant">@color/text_color_secondary_light</item>
-        <item name="colorSurfaceContainer">#EBEEF3</item>
+        <item name="colorSurfaceContainer">@color/background_elevated_light</item>
         <item name="colorSecondaryContainer">@color/color_secondary_container_light</item>
-        <item name="colorOnSecondaryContainer">@color/black</item>
-        <item name="android:textColorPrimary">@color/black</item>
+        <item name="colorOnSecondaryContainer">@color/paper_text_light</item>
+        <item name="android:textColorPrimary">@color/paper_text_light</item>
         <item name="android:textColorSecondary">@color/text_color_secondary_light</item>
         <item name="android:textColorTertiary">@color/text_color_secondary_light</item>
         <item name="colorOutline">@color/text_color_secondary_light</item>
         <item name="colorOutlineVariant">@color/text_color_secondary_light</item>
         <item name="colorSurfaceContainerHigh">@color/color_surface_variant_light</item>
-        <item name="colorSurfaceContainerHighest">#C0CFD3</item>
+        <item name="colorSurfaceContainerHighest">@color/color_surface_variant_light</item>
         <item name="colorSurfaceContainerLow">@color/color_surface_variant_light</item>
         <item name="colorSurfaceContainerLowest">@color/color_surface_variant_light</item>
     </style>
@@ -94,31 +95,32 @@
     </style>
 
     <style name="Theme.AntennaPod.Dark" parent="Theme.AntennaPod.Dynamic.Dark">
+        <item name="paperSecondaryAccent">@color/paper_secondary_accent_dark</item>
         <item name="isMaterial3DynamicColorApplied">false</item>
         <item name="colorPrimary">@color/accent_dark</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorOnPrimary">@color/paper_on_primary_dark</item>
         <item name="colorAccent">@color/accent_dark</item>
         <item name="colorSecondary">@color/accent_dark</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSecondary">@color/paper_on_primary_dark</item>
         <item name="colorPrimaryDark">@color/accent_dark</item>
-        <item name="colorPrimaryContainer">#29374E</item>
-        <item name="colorOnPrimaryContainer">@color/white</item>
+        <item name="colorPrimaryContainer">#45423F</item>
+        <item name="colorOnPrimaryContainer">@color/paper_text_dark</item>
         <item name="android:colorBackground">@color/background_darktheme</item>
         <item name="colorSurface">@color/background_darktheme</item>
-        <item name="colorOnSurface">@color/white</item>
-        <item name="colorOnContainer">@color/white</item>
+        <item name="colorOnSurface">@color/paper_text_dark</item>
+        <item name="colorOnContainer">@color/paper_text_dark</item>
         <item name="colorSurfaceVariant">@color/color_surface_variant_dark</item>
         <item name="colorOnSurfaceVariant">@color/text_color_secondary_dark</item>
-        <item name="colorSurfaceContainer">#1C2024</item>
+        <item name="colorSurfaceContainer">#2D3033</item>
         <item name="colorSecondaryContainer">@color/color_secondary_container_dark</item>
-        <item name="colorOnSecondaryContainer">@color/white</item>
-        <item name="android:textColorPrimary">@color/white</item>
+        <item name="colorOnSecondaryContainer">@color/paper_text_dark</item>
+        <item name="android:textColorPrimary">@color/paper_text_dark</item>
         <item name="android:textColorSecondary">@color/text_color_secondary_dark</item>
         <item name="android:textColorTertiary">@color/text_color_secondary_dark</item>
         <item name="colorOutline">@color/text_color_secondary_dark</item>
         <item name="colorOutlineVariant">@color/text_color_secondary_dark</item>
         <item name="colorSurfaceContainerHigh">@color/color_surface_variant_dark</item>
-        <item name="colorSurfaceContainerHighest">#38455C</item>
+        <item name="colorSurfaceContainerHighest">#45423F</item>
         <item name="colorSurfaceContainerLow">@color/color_surface_variant_dark</item>
         <item name="colorSurfaceContainerLowest">@color/color_surface_variant_dark</item>
     </style>
